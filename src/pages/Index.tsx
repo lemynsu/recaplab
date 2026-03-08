@@ -53,16 +53,16 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
         <div className="flex items-center justify-between px-6 md:px-12 py-5 max-w-[1400px] mx-auto">
           <span
-            className="text-[14px] font-sans font-bold uppercase tracking-[0.2em]"
+            className="text-[15px] font-sans font-black uppercase tracking-[0.25em] relative"
             style={{
-              background: "linear-gradient(180deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 50%, hsl(var(--foreground)) 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-              filter: "contrast(1.2)",
+              color: "hsl(var(--foreground))",
+              textShadow:
+                "2px 0 0 hsl(var(--muted-foreground) / 0.3), -1px 0 0 hsl(var(--muted-foreground) / 0.15), 4px 0 2px hsl(var(--muted-foreground) / 0.1), -2px 0 1px hsl(var(--muted-foreground) / 0.08)",
+              filter: "contrast(1.3)",
+              letterSpacing: "0.25em",
             }}
           >
-            ENCORE
+            RECAP
           </span>
           <div className="flex items-center gap-0 text-[13px] font-sans font-normal text-foreground">
             <Link to="/join" className="px-3 py-1 hover:opacity-60 transition-opacity duration-200">
