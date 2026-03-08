@@ -31,6 +31,12 @@ const albums = [
     thumbs: [nightThumb1, nightThumb2, nightThumb3],
   },
   {
+    title: "Startup Design Team",
+    meta: "Feb 2025  ·  5 photos",
+    cover: startupCover,
+    thumbs: [startupThumb1, startupThumb2, startupThumb3],
+  },
+  {
     title: "Winter Trails",
     meta: "Jan 2025  ·  6 photos",
     cover: hikeThumb3,
@@ -41,12 +47,6 @@ const albums = [
     meta: "Dec 2024  ·  8 photos",
     cover: yosemiteThumb2,
     thumbs: [nightThumb3, hikeThumb3, yosemiteThumb3],
-  },
-  {
-    title: "Startup Design Team",
-    meta: "Feb 2025  ·  5 photos",
-    cover: startupCover,
-    thumbs: [startupThumb1, startupThumb2, startupThumb3],
   },
 ];
 
