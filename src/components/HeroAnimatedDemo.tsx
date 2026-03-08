@@ -46,9 +46,9 @@ const photos: PhotoData[] = [
 ];
 
 const groups = [
-  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", left: 22 },
+  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", left: 18 },
   { label: "WINTER HIKE", meta: "4 photos · Jan 2025", left: 50 },
-  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", left: 78 },
+  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", left: 82 },
 ];
 
 const deck = [
@@ -223,17 +223,23 @@ export default function HeroAnimatedDemo() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
-      {/* ── hero text ── */}
+      {/* ── hero text — centered vertically ── */}
       <motion.div
         animate={{ opacity: phase === "scatter" ? 1 : 0 }}
         transition={{ duration: 0.6 }}
-        className="absolute top-[80px] sm:top-[72px] left-[8vw] z-20 pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none text-center"
       >
         <h1 className="font-display font-light text-[38px] sm:text-[54px] md:text-[72px] leading-[1.08] tracking-[-0.02em] text-foreground">
           Every event deserves
           <br />
           a better album.
         </h1>
+        <Link
+          to="/create"
+          className="inline-block mt-6 text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200 pointer-events-auto"
+        >
+          Create your shared album →
+        </Link>
       </motion.div>
 
       {/* ── photos ── */}
@@ -263,11 +269,11 @@ export default function HeroAnimatedDemo() {
           style={{ left: `${g.left}%` }}
           className="absolute top-1/2 -translate-x-1/2 z-10 pointer-events-none"
         >
-          <div style={{ transform: "translateY(110px)" }} className="text-center">
-            <p className="text-[11px] font-sans font-medium uppercase tracking-[0.12em] text-foreground">
+          <div style={{ transform: "translateY(120px)" }} className="text-center">
+            <p className="text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
               {g.label}
             </p>
-            <p className="text-[11px] font-sans font-light text-muted-foreground mt-0.5">
+            <p className="text-[11px] font-sans font-light text-muted-foreground mt-1">
               {g.meta}
             </p>
           </div>
