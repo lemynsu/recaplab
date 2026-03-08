@@ -46,7 +46,7 @@ const albums = [
     title: "Startup Design Team",
     meta: "Feb 2025  ·  5 photos",
     cover: startupCover,
-    thumbs: [startupThumb1, nightThumb2, yosemiteThumb1],
+    thumbs: [startupThumb1, startupThumb2, startupThumb3],
   },
 ];
 
