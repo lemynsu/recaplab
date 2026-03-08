@@ -116,7 +116,7 @@ const Index = () => {
                 to="/create"
                 className="text-[13px] font-sans font-normal text-foreground hover:underline underline-offset-4 transition-all duration-200"
               >
-                Create your album &rarr;
+                Create your shared album &rarr;
               </Link>
             </motion.div>
           </div>
