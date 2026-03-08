@@ -277,6 +277,14 @@ export default function HeroAnimatedDemo() {
             <p className="text-[11px] font-sans font-light text-muted-foreground mt-1">
               {g.meta}
             </p>
+            <div className="flex items-center justify-center gap-1.5 mt-2">
+              <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
+                <User size={10} className="text-muted-foreground" />
+              </div>
+              <span className="text-[10px] font-sans font-light text-muted-foreground">
+                {g.creator}
+              </span>
+            </div>
           </div>
         </motion.div>
       ))}
