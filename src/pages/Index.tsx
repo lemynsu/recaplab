@@ -12,6 +12,9 @@ import nightThumb1 from "@/assets/night-thumb1.jpg";
 import nightThumb2 from "@/assets/night-thumb2.jpg";
 import nightThumb3 from "@/assets/night-thumb3.jpg";
 
+import startupCover from "@/assets/startup-cover.jpg";
+import startupThumb1 from "@/assets/startup-thumb1.jpg";
+
 const albums = [
   {
     title: "Yosemite Trip",
@@ -36,6 +39,12 @@ const albums = [
     meta: "Dec 2024  ·  8 photos",
     cover: yosemiteThumb2,
     thumbs: [nightThumb3, hikeThumb3, yosemiteThumb3],
+  },
+  {
+    title: "Startup Design Team",
+    meta: "Feb 2025  ·  5 photos",
+    cover: startupCover,
+    thumbs: [startupThumb1, nightThumb2, yosemiteThumb1],
   },
 ];
 
