@@ -72,6 +72,11 @@ const PHASE_ORDER: Phase[] = ["scatter", "line", "albums"];
 
 /* ─── helpers to compute target styles per phase ──── */
 
+const MOBILE_ANIMATION_TOP = "46%";
+const MOBILE_ALBUM_WIDTH = 82;
+const MOBILE_PHOTO_WIDTH = 46;
+
+
 function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
   const g = groups[photo.group];
   const d = deck[photo.idx];
