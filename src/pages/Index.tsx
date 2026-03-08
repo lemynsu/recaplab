@@ -6,18 +6,13 @@ import yosemiteThumb1 from "@/assets/yosemite-thumb1.jpg";
 import yosemiteThumb2 from "@/assets/yosemite-thumb2.jpg";
 import yosemiteThumb3 from "@/assets/yosemite-thumb3.jpg";
 
-import hikeThumb3 from "@/assets/hike-thumb3.jpg";
-
-import nightThumb1 from "@/assets/night-thumb1.jpg";
-import nightThumb2 from "@/assets/night-thumb2.jpg";
-import nightThumb3 from "@/assets/night-thumb3.jpg";
-
 import startupCover from "@/assets/startup-cover.jpg";
 import startupThumb1 from "@/assets/startup-thumb1.jpg";
 import startupThumb2 from "@/assets/startup-thumb2.png";
 import startupThumb3 from "@/assets/startup-thumb3.jpg";
 
 import bdayCover from "@/assets/bday-cover.jpg";
+import bdayThumb1 from "@/assets/bday-thumb1.jpg";
 
 const albums = [
   {
@@ -30,31 +25,13 @@ const albums = [
     title: "23rd Birthday Party",
     meta: "Mar 2025  ·  4 photos",
     cover: bdayCover,
-    thumbs: [nightThumb1, nightThumb3, nightThumb2],
-  },
-  {
-    title: "Night & Nature",
-    meta: "Jan 2025  ·  4 photos",
-    cover: nightThumb2,
-    thumbs: [nightThumb1, nightThumb2, nightThumb3],
+    thumbs: [bdayThumb1, yosemiteThumb1, yosemiteThumb3],
   },
   {
     title: "Startup Design Team",
     meta: "Feb 2025  ·  5 photos",
     cover: startupCover,
     thumbs: [startupThumb1, startupThumb2, startupThumb3],
-  },
-  {
-    title: "Winter Trails",
-    meta: "Jan 2025  ·  6 photos",
-    cover: hikeThumb3,
-    thumbs: [yosemiteThumb3, nightThumb1, yosemiteThumb1],
-  },
-  {
-    title: "Golden Hour",
-    meta: "Dec 2024  ·  8 photos",
-    cover: yosemiteThumb2,
-    thumbs: [nightThumb3, hikeThumb3, yosemiteThumb3],
   },
 ];
 
