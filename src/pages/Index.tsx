@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Camera, Share2, Users, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import heroImage from "@/assets/hero-image.jpg";
 
 const steps = [
   { icon: Camera, title: "Create an event", description: "Set up your album in seconds with a title, date, and cover photo." },
