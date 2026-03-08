@@ -99,7 +99,7 @@ const Index = () => {
       </nav>
 
       {/* Hero scroll animation */}
-      <HeroScrollAnimation />
+      <HeroAnimatedDemo />
 
       {/* Suggestions + Join */}
       <div className="px-6 md:px-[8vw] pt-10 pb-16">
