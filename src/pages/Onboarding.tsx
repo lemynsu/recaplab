@@ -52,7 +52,6 @@ const Onboarding = () => {
     if (step < steps.length - 1) {
       setStep(step + 1);
     } else {
-      // Save answers
       if (user) {
         await supabase
           .from("profiles")
@@ -79,15 +78,15 @@ const Onboarding = () => {
   const currentStep = steps[step];
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-6">
+    <div className="min-h-screen bg-background flex items-center justify-center px-5">
       <div className="w-full max-w-md">
-        {/* Progress bar */}
-        <div className="flex gap-2 mb-10">
+        {/* Progress */}
+        <div className="flex gap-2 mb-12">
           {steps.map((_, i) => (
             <div
               key={i}
-              className={`h-1.5 flex-1 rounded-full transition-colors duration-300 ${
-                i <= step ? "bg-primary" : "bg-border"
+              className={`h-0.5 flex-1 rounded-full transition-colors duration-500 ${
+                i <= step ? "bg-primary" : "bg-border/50"
               }`}
             />
           ))}
@@ -101,23 +100,25 @@ const Onboarding = () => {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <p className="text-sm text-muted-foreground mb-2">Step {step + 1} of {steps.length}</p>
-            <h1 className="text-2xl md:text-3xl font-display font-bold text-foreground mb-8">
+            <p className="text-xs text-muted-foreground uppercase tracking-widest mb-3">
+              {step + 1} of {steps.length}
+            </p>
+            <h1 className="text-2xl md:text-3xl font-display text-foreground mb-8">
               {currentStep.question}
             </h1>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               {currentStep.options.map((option) => (
                 <button
                   key={option.value}
                   onClick={() => handleSelect(currentStep.key, option.value)}
-                  className={`w-full text-left px-5 py-4 rounded-2xl border transition-all duration-200 ${
+                  className={`w-full text-left px-5 py-4 rounded-xl border transition-all duration-200 ${
                     answers[currentStep.key] === option.value
-                      ? "border-primary bg-primary/5 shadow-sm"
-                      : "border-border/50 bg-card hover:border-primary/30"
+                      ? "border-primary/50 bg-primary/5"
+                      : "border-border/30 bg-card hover:border-border/60"
                   }`}
                 >
-                  <span className="font-medium text-foreground">{option.label}</span>
+                  <span className="text-sm text-foreground">{option.label}</span>
                 </button>
               ))}
             </div>
@@ -127,16 +128,16 @@ const Onboarding = () => {
         <div className="flex items-center justify-between mt-10">
           <div>
             {step > 0 && (
-              <Button variant="ghost" size="sm" onClick={() => setStep(step - 1)}>
+              <Button variant="ghost" size="sm" onClick={() => setStep(step - 1)} className="text-muted-foreground">
                 <ArrowLeft className="h-4 w-4 mr-1" /> Back
               </Button>
             )}
           </div>
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" onClick={handleSkip}>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={handleSkip} className="text-muted-foreground text-xs">
               Skip
             </Button>
-            <Button onClick={handleNext} disabled={!answers[currentStep.key]}>
+            <Button onClick={handleNext} disabled={!answers[currentStep.key]} size="sm">
               {step === steps.length - 1 ? "Get started" : "Continue"} <ArrowRight className="h-4 w-4 ml-1" />
             </Button>
           </div>

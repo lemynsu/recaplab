@@ -9,21 +9,8 @@ import { toast } from "sonner";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface Photo {
-  id: string;
-  storage_url: string;
-  status: string;
-  uploaded_at: string;
-}
-
-interface EventData {
-  id: string;
-  title: string;
-  slug: string;
-  date: string | null;
-  status: string;
-  organizer_id: string;
-}
+interface Photo { id: string; storage_url: string; status: string; uploaded_at: string; }
+interface EventData { id: string; title: string; slug: string; date: string | null; status: string; organizer_id: string; }
 
 const EventAdmin = () => {
   const { slug } = useParams();
@@ -32,35 +19,18 @@ const EventAdmin = () => {
   const [photos, setPhotos] = useState<Photo[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ total: 0, approved: 0, pending: 0 });
-
   const eventUrl = `${window.location.origin}/e/${slug}`;
 
-  useEffect(() => {
-    fetchEvent();
-  }, [slug]);
+  useEffect(() => { fetchEvent(); }, [slug]);
 
   const fetchEvent = async () => {
-    const { data: eventData } = await supabase
-      .from("events")
-      .select("*")
-      .eq("slug", slug)
-      .single();
-
+    const { data: eventData } = await supabase.from("events").select("*").eq("slug", slug).single();
     if (eventData) {
       setEvent(eventData);
-      const { data: photoData } = await supabase
-        .from("photos")
-        .select("*")
-        .eq("event_id", eventData.id)
-        .order("uploaded_at", { ascending: false });
-
+      const { data: photoData } = await supabase.from("photos").select("*").eq("event_id", eventData.id).order("uploaded_at", { ascending: false });
       if (photoData) {
         setPhotos(photoData);
-        setStats({
-          total: photoData.length,
-          approved: photoData.filter((p) => p.status === "approved").length,
-          pending: photoData.filter((p) => p.status === "pending").length,
-        });
+        setStats({ total: photoData.length, approved: photoData.filter((p) => p.status === "approved").length, pending: photoData.filter((p) => p.status === "pending").length });
       }
     }
     setLoading(false);
@@ -69,11 +39,7 @@ const EventAdmin = () => {
   const updatePhotoStatus = async (photoId: string, status: string) => {
     await supabase.from("photos").update({ status }).eq("id", photoId);
     setPhotos((prev) => prev.map((p) => (p.id === photoId ? { ...p, status } : p)));
-    setStats((prev) => ({
-      ...prev,
-      approved: status === "approved" ? prev.approved + 1 : prev.approved - (status === "rejected" ? 0 : 0),
-      pending: prev.pending - 1,
-    }));
+    setStats((prev) => ({ ...prev, approved: status === "approved" ? prev.approved + 1 : prev.approved, pending: prev.pending - 1 }));
     toast.success(`Photo ${status}`);
   };
 
@@ -94,111 +60,97 @@ const EventAdmin = () => {
     toast.success(`Event ${newStatus}`);
   };
 
-  const copyLink = () => {
-    navigator.clipboard.writeText(eventUrl);
-    toast.success("Link copied!");
-  };
+  const copyLink = () => { navigator.clipboard.writeText(eventUrl); toast.success("Link copied!"); };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background px-6 py-8 max-w-4xl mx-auto">
-        <Skeleton className="h-8 w-48 mb-6 rounded-xl" />
-        <Skeleton className="h-24 rounded-2xl mb-6" />
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          {[1, 2, 3, 4].map((i) => <Skeleton key={i} className="h-32 rounded-2xl" />)}
+      <div className="min-h-screen bg-background px-5 py-8 max-w-4xl mx-auto">
+        <Skeleton className="h-6 w-40 mb-6 rounded-lg bg-card" />
+        <Skeleton className="h-20 rounded-xl mb-6 bg-card" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {[1, 2, 3, 4].map((i) => <Skeleton key={i} className="h-28 rounded-lg bg-card" />)}
         </div>
       </div>
     );
   }
 
-  if (!event) return <div className="min-h-screen bg-background flex items-center justify-center text-muted-foreground">Event not found</div>;
+  if (!event) return <div className="min-h-screen bg-background flex items-center justify-center text-muted-foreground text-sm">Event not found</div>;
 
   const pendingPhotos = photos.filter((p) => p.status === "pending");
   const approvedPhotos = photos.filter((p) => p.status === "approved");
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="flex items-center px-6 py-4 max-w-4xl mx-auto border-b border-border/50">
-        <Link to="/dashboard" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
-          <ArrowLeft className="h-4 w-4" /> Dashboard
-        </Link>
+      <nav className="sticky top-0 z-50 bg-background/60 backdrop-blur-2xl border-b border-border/30">
+        <div className="flex items-center px-5 py-4 max-w-4xl mx-auto">
+          <Link to="/dashboard" className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors uppercase tracking-widest">
+            <ArrowLeft className="h-3.5 w-3.5" /> Dashboard
+          </Link>
+        </div>
       </nav>
 
-      <div className="px-6 py-8 max-w-4xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
+      <div className="px-5 py-8 max-w-4xl mx-auto">
+        <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-8">
           <div>
-            <h1 className="text-3xl font-display font-bold text-foreground">{event.title}</h1>
-            <p className="text-muted-foreground mt-1">
+            <h1 className="text-2xl font-display text-foreground">{event.title}</h1>
+            <p className="text-xs text-muted-foreground mt-1">
               {event.date ? new Date(event.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "No date"}
             </p>
           </div>
-          <Button variant="outline" size="sm" onClick={toggleEventStatus}>
-            {event.status === "active" ? (
-              <><ToggleRight className="h-4 w-4 mr-1" /> Close Event</>
-            ) : (
-              <><ToggleLeft className="h-4 w-4 mr-1" /> Reopen Event</>
-            )}
+          <Button variant="outline" size="sm" onClick={toggleEventStatus} className="border-border/50 text-xs">
+            {event.status === "active" ? <><ToggleRight className="h-3.5 w-3.5 mr-1" /> Close</> : <><ToggleLeft className="h-3.5 w-3.5 mr-1" /> Reopen</>}
           </Button>
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-3 mb-8">
+        <div className="grid grid-cols-3 gap-2 mb-8">
           {[
             { label: "Total", value: stats.total },
             { label: "Approved", value: stats.approved },
             { label: "Pending", value: stats.pending },
           ].map((s) => (
-            <div key={s.label} className="bg-card rounded-2xl border border-border/50 p-4 text-center">
-              <p className="text-2xl font-bold text-foreground">{s.value}</p>
-              <p className="text-xs text-muted-foreground">{s.label}</p>
+            <div key={s.label} className="bg-card rounded-xl border border-border/30 p-4 text-center">
+              <p className="text-xl font-semibold text-foreground">{s.value}</p>
+              <p className="text-[11px] text-muted-foreground uppercase tracking-wider">{s.label}</p>
             </div>
           ))}
         </div>
 
-        {/* Share section */}
-        <div className="bg-card rounded-2xl border border-border/50 p-6 mb-8 flex flex-col md:flex-row items-center gap-6">
-          <QRCodeSVG value={eventUrl} size={120} bgColor="transparent" fgColor="hsl(0 0% 10%)" />
+        {/* Share */}
+        <div className="bg-card rounded-xl border border-border/30 p-5 mb-8 flex flex-col md:flex-row items-center gap-5">
+          <QRCodeSVG value={eventUrl} size={100} bgColor="transparent" fgColor="hsl(40, 20%, 92%)" />
           <div className="flex-1 text-center md:text-left">
-            <h3 className="font-semibold text-foreground mb-1">Share this event</h3>
-            <p className="text-sm text-muted-foreground mb-3">{eventUrl}</p>
+            <h3 className="text-sm font-medium text-foreground mb-1">Share this event</h3>
+            <p className="text-xs text-muted-foreground mb-3 break-all">{eventUrl}</p>
             <div className="flex gap-2 justify-center md:justify-start">
-              <Button variant="outline" size="sm" onClick={copyLink}>
-                <Copy className="h-4 w-4 mr-1" /> Copy link
+              <Button variant="outline" size="sm" onClick={copyLink} className="text-xs border-border/50">
+                <Copy className="h-3.5 w-3.5 mr-1" /> Copy
               </Button>
               <Link to={`/e/${slug}`}>
-                <Button variant="ghost" size="sm">
-                  <LinkIcon className="h-4 w-4 mr-1" /> View gallery
+                <Button variant="ghost" size="sm" className="text-xs text-muted-foreground">
+                  <LinkIcon className="h-3.5 w-3.5 mr-1" /> View
                 </Button>
               </Link>
             </div>
           </div>
         </div>
 
-        {/* Pending photos */}
+        {/* Pending */}
         {pendingPhotos.length > 0 && (
           <div className="mb-8">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-display font-semibold text-foreground">Pending Approval ({pendingPhotos.length})</h2>
-              <Button variant="default" size="sm" onClick={bulkApprove}>
-                <Check className="h-4 w-4 mr-1" /> Approve All
+              <h2 className="text-base font-display text-foreground">Pending ({pendingPhotos.length})</h2>
+              <Button size="sm" onClick={bulkApprove} className="text-xs h-7">
+                <Check className="h-3.5 w-3.5 mr-1" /> Approve All
               </Button>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
               {pendingPhotos.map((photo) => (
-                <motion.div
-                  key={photo.id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="relative group rounded-2xl overflow-hidden bg-muted aspect-square"
-                >
+                <motion.div key={photo.id} initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="relative group rounded-lg overflow-hidden bg-card aspect-square">
                   <img src={photo.storage_url} alt="" className="w-full h-full object-cover" />
-                  <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                    <Button size="icon" variant="default" className="rounded-xl" onClick={() => updatePhotoStatus(photo.id, "approved")}>
-                      <Check className="h-5 w-5" />
-                    </Button>
-                    <Button size="icon" variant="destructive" className="rounded-xl" onClick={() => updatePhotoStatus(photo.id, "rejected")}>
-                      <X className="h-5 w-5" />
-                    </Button>
+                  <div className="absolute inset-0 bg-background/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <Button size="icon" className="rounded-lg h-8 w-8" onClick={() => updatePhotoStatus(photo.id, "approved")}><Check className="h-4 w-4" /></Button>
+                    <Button size="icon" variant="destructive" className="rounded-lg h-8 w-8" onClick={() => updatePhotoStatus(photo.id, "rejected")}><X className="h-4 w-4" /></Button>
                   </div>
                 </motion.div>
               ))}
@@ -206,19 +158,19 @@ const EventAdmin = () => {
           </div>
         )}
 
-        {/* Approved photos */}
+        {/* Approved */}
         <div>
-          <h2 className="text-xl font-display font-semibold text-foreground mb-4">Approved Photos ({approvedPhotos.length})</h2>
+          <h2 className="text-base font-display text-foreground mb-4">Approved ({approvedPhotos.length})</h2>
           {approvedPhotos.length === 0 ? (
-            <div className="text-center py-12 text-muted-foreground">
-              <Image className="h-10 w-10 mx-auto mb-3 opacity-50" />
-              <p>No approved photos yet</p>
+            <div className="text-center py-16 text-muted-foreground">
+              <Image className="h-8 w-8 mx-auto mb-3 opacity-30" />
+              <p className="text-xs">No approved photos yet</p>
             </div>
           ) : (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
               {approvedPhotos.map((photo) => (
-                <div key={photo.id} className="rounded-2xl overflow-hidden bg-muted aspect-square">
-                  <img src={photo.storage_url} alt="" className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+                <div key={photo.id} className="rounded-lg overflow-hidden bg-card aspect-square">
+                  <img src={photo.storage_url} alt="" className="w-full h-full object-cover hover:scale-[1.03] transition-transform duration-500" />
                 </div>
               ))}
             </div>

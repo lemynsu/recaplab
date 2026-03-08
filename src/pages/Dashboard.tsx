@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/lib/supabase";
-import { Plus, Calendar, Image, LogOut } from "lucide-react";
+import { Plus, Calendar, Image, LogOut, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -39,7 +39,6 @@ const Dashboard = () => {
       .order("created_at", { ascending: false });
 
     if (data) {
-      // Get photo counts
       const eventsWithCounts = await Promise.all(
         data.map(async (event) => {
           const { count } = await supabase
@@ -56,10 +55,10 @@ const Dashboard = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen bg-background px-6 py-8 max-w-4xl mx-auto">
-        <Skeleton className="h-10 w-48 mb-8 rounded-xl" />
-        <div className="grid gap-4">
-          {[1, 2, 3].map((i) => <Skeleton key={i} className="h-32 rounded-2xl" />)}
+      <div className="min-h-screen bg-background px-5 py-8 max-w-4xl mx-auto">
+        <Skeleton className="h-8 w-48 mb-8 rounded-lg bg-card" />
+        <div className="grid gap-3">
+          {[1, 2, 3].map((i) => <Skeleton key={i} className="h-28 rounded-xl bg-card" />)}
         </div>
       </div>
     );
@@ -67,80 +66,84 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <nav className="flex items-center justify-between px-6 py-4 max-w-4xl mx-auto border-b border-border/50">
-        <Link to="/" className="text-2xl font-display font-bold text-foreground">Encore</Link>
-        <div className="flex items-center gap-3">
-          <Button variant="ghost" size="sm" onClick={() => { signOut(); navigate("/"); }}>
-            <LogOut className="h-4 w-4 mr-1" /> Sign out
+      <nav className="sticky top-0 z-50 bg-background/60 backdrop-blur-2xl border-b border-border/30">
+        <div className="flex items-center justify-between px-5 py-4 max-w-4xl mx-auto">
+          <Link to="/" className="text-xl font-display text-foreground">Encore</Link>
+          <Button variant="ghost" size="sm" onClick={() => { signOut(); navigate("/"); }} className="text-muted-foreground text-xs">
+            <LogOut className="h-3.5 w-3.5 mr-1" /> Sign out
           </Button>
         </div>
       </nav>
 
-      <div className="px-6 py-8 max-w-4xl mx-auto">
+      <div className="px-5 py-8 max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-display font-bold text-foreground">Your Events</h1>
+          <div>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">Dashboard</p>
+            <h1 className="text-2xl font-display text-foreground">Your Events</h1>
+          </div>
           <Link to="/create">
-            <Button variant="hero" size="default">
+            <Button size="sm">
               <Plus className="h-4 w-4 mr-1" /> New Event
             </Button>
           </Link>
         </div>
 
         {loading ? (
-          <div className="grid gap-4">
-            {[1, 2].map((i) => <Skeleton key={i} className="h-32 rounded-2xl" />)}
+          <div className="grid gap-3">
+            {[1, 2].map((i) => <Skeleton key={i} className="h-28 rounded-xl bg-card" />)}
           </div>
         ) : events.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center py-20"
+            className="text-center py-24"
           >
-            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-5">
-              <Calendar className="h-8 w-8 text-primary" />
+            <div className="w-14 h-14 rounded-xl bg-card border border-border/30 flex items-center justify-center mx-auto mb-5">
+              <Calendar className="h-6 w-6 text-muted-foreground" />
             </div>
-            <h2 className="text-xl font-display font-semibold text-foreground mb-2">No events yet</h2>
-            <p className="text-muted-foreground mb-6">Create your first event to start collecting photos.</p>
+            <h2 className="text-lg font-display text-foreground mb-2">No events yet</h2>
+            <p className="text-sm text-muted-foreground mb-6">Create your first event to start collecting photos.</p>
             <Link to="/create">
-              <Button variant="hero">Create your first event</Button>
+              <Button>Create your first event</Button>
             </Link>
           </motion.div>
         ) : (
-          <div className="grid gap-4">
+          <div className="grid gap-3">
             {events.map((event, i) => (
               <motion.div
                 key={event.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
+                transition={{ delay: i * 0.04 }}
               >
                 <Link
                   to={`/admin/${event.slug}`}
-                  className="flex items-center gap-5 bg-card rounded-2xl border border-border/50 p-5 hover:shadow-md transition-shadow group"
+                  className="flex items-center gap-4 bg-card rounded-xl border border-border/30 p-4 hover:border-border/60 transition-all group"
                 >
-                  <div className="w-20 h-20 rounded-xl bg-muted flex-shrink-0 overflow-hidden">
+                  <div className="w-16 h-16 rounded-lg bg-muted flex-shrink-0 overflow-hidden">
                     {event.cover_photo_url ? (
                       <img src={event.cover_photo_url} alt="" className="w-full h-full object-cover" />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <Image className="h-6 w-6 text-muted-foreground" />
+                        <Image className="h-5 w-5 text-muted-foreground/50" />
                       </div>
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                    <h3 className="text-sm font-medium text-foreground group-hover:text-primary transition-colors truncate">
                       {event.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-xs text-muted-foreground mt-0.5">
                       {event.date ? new Date(event.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "No date set"}
                     </p>
-                    <div className="flex items-center gap-3 mt-2">
+                    <div className="flex items-center gap-3 mt-1.5">
                       <span className="text-xs text-muted-foreground">{event.photo_count} photos</span>
                       <span className={`text-xs px-2 py-0.5 rounded-full ${event.status === "active" ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
                         {event.status}
                       </span>
                     </div>
                   </div>
+                  <ArrowUpRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors flex-shrink-0" />
                 </Link>
               </motion.div>
             ))}
