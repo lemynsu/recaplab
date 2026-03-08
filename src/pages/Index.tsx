@@ -14,6 +14,11 @@ import startupThumb3 from "@/assets/startup-thumb3.jpg";
 import bdayCover from "@/assets/bday-cover.jpg";
 import bdayThumb1 from "@/assets/bday-thumb1.jpg";
 
+import rtfCover from "@/assets/rtf-cover.jpg";
+import rtfThumb1 from "@/assets/rtf-thumb1.jpg";
+import rtfThumb2 from "@/assets/rtf-thumb2.jpg";
+import rtfThumb3 from "@/assets/rtf-thumb3.jpg";
+
 const albums = [
   {
     title: "Yosemite Trip",
@@ -33,6 +38,12 @@ const albums = [
     cover: startupCover,
     thumbs: [startupThumb1, startupThumb2, startupThumb3],
   },
+  {
+    title: "RTF Club",
+    meta: "Mar 2025  ·  4 photos",
+    cover: rtfCover,
+    thumbs: [rtfThumb1, rtfThumb2, rtfThumb3],
+  },
 ];
 
 const suggestions = [
@@ -50,26 +61,26 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/40">
         <div className="flex items-center justify-between px-6 md:px-12 py-5 max-w-[1400px] mx-auto">
           <span
-            className="text-[15px] font-sans font-black uppercase tracking-[0.25em] relative"
+            className="text-[15px] font-sans font-black uppercase tracking-[0.3em] relative select-none"
             style={{
-              color: "hsl(var(--foreground))",
-              textShadow:
-                "2px 0 0 hsl(var(--muted-foreground) / 0.3), -1px 0 0 hsl(var(--muted-foreground) / 0.15), 4px 0 2px hsl(var(--muted-foreground) / 0.1), -2px 0 1px hsl(var(--muted-foreground) / 0.08)",
-              filter: "contrast(1.3)",
-              letterSpacing: "0.25em",
+              background: "linear-gradient(180deg, hsl(0 0% 95%) 0%, hsl(0 0% 45%) 50%, hsl(0 0% 85%) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              filter: "contrast(1.4)",
             }}
           >
             RECAP
           </span>
-          <div className="flex items-center gap-0 text-[13px] font-sans font-normal text-foreground">
-            <Link to="/join" className="px-3 py-1 hover:opacity-60 transition-opacity duration-200">
+          <div className="flex items-center gap-0 text-[13px] font-sans font-light text-muted-foreground">
+            <Link to="/join" className="px-3 py-1 hover:text-foreground transition-colors duration-200">
               Join
             </Link>
             <span className="text-border">|</span>
-            <Link to="/auth" className="px-3 py-1 hover:opacity-60 transition-opacity duration-200">
+            <Link to="/auth" className="px-3 py-1 hover:text-foreground transition-colors duration-200">
               Sign in
             </Link>
           </div>
@@ -99,7 +110,7 @@ const Index = () => {
             >
               <Link
                 to="/create"
-                className="text-[13px] font-sans font-normal text-foreground hover:underline underline-offset-4 transition-all duration-200"
+                className="text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
               >
                 Create your shared album &rarr;
               </Link>
@@ -116,10 +127,10 @@ const Index = () => {
             transition={{ duration: 0.7, ease, delay: 0.4 }}
             className="flex items-center justify-between px-6 md:px-[8vw] mb-4"
           >
-            <span className="text-[11px] font-sans font-medium uppercase tracking-[0.15em] text-muted-foreground">
+            <span className="text-[10px] font-sans font-medium uppercase tracking-[0.2em] text-muted-foreground">
               Recent Albums
             </span>
-            <span className="text-[11px] font-sans font-light text-muted-foreground hidden sm:block pr-0 md:pr-[8vw]">
+            <span className="text-[10px] font-sans font-light text-muted-foreground/60 hidden sm:block pr-0 md:pr-[8vw]">
               scroll to explore →
             </span>
           </motion.div>
@@ -139,12 +150,12 @@ const Index = () => {
                   ease,
                   delay: 0.5 + i * 0.1,
                 }}
-                className="flex-shrink-0 w-[220px] sm:w-[240px] md:w-[260px] rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                className="flex-shrink-0 w-[220px] sm:w-[240px] md:w-[260px] rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1"
                 style={{
                   height: "320px",
-                  background: "hsl(40 10% 98%)",
-                  border: "1px solid hsl(var(--border))",
-                  boxShadow: "2px 6px 24px rgba(0,0,0,0.09)",
+                  background: "hsl(0 0% 8%)",
+                  border: "1px solid hsl(0 0% 14%)",
+                  boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
                 }}
               >
                 {/* Cover photo — 65% */}
@@ -152,19 +163,19 @@ const Index = () => {
                   <img
                     src={album.cover}
                     alt={album.title}
-                    className="w-full h-full object-cover brightness-[0.75] contrast-[1.05]"
+                    className="w-full h-full object-cover brightness-[0.8] contrast-[1.1] saturate-[0.85]"
                   />
                 </div>
 
                 {/* Photo strip — 15% */}
-                <div className="w-full flex" style={{ height: "15%", gap: "2px" }}>
+                <div className="w-full flex" style={{ height: "15%", gap: "1px" }}>
                   {album.thumbs.map((thumb, j) => (
                     <img
                       key={j}
                       src={thumb}
                       alt=""
-                      className="h-full object-cover brightness-[0.7] contrast-[1.05]"
-                      style={{ width: "calc(33.333% - 1.33px)" }}
+                      className="h-full object-cover brightness-[0.65] contrast-[1.1] saturate-[0.8]"
+                      style={{ width: "calc(33.333% - 0.67px)" }}
                     />
                   ))}
                 </div>
@@ -201,7 +212,7 @@ const Index = () => {
           transition={{ duration: 0.7, ease, delay: 1.1 }}
           className="px-6 md:px-[8vw] pt-10 pb-16"
         >
-          <p className="text-[11px] font-sans font-medium uppercase tracking-[0.15em] text-muted-foreground mb-4">
+          <p className="text-[10px] font-sans font-medium uppercase tracking-[0.2em] text-muted-foreground mb-4">
             Create an album for
           </p>
           <div className="flex flex-wrap gap-2 mb-6">
@@ -209,7 +220,7 @@ const Index = () => {
               <Link
                 key={s.label}
                 to="/create"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-border/60 bg-card text-[12px] font-sans font-normal text-foreground hover:bg-accent hover:border-border transition-all duration-200"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-border bg-card text-[12px] font-sans font-normal text-secondary-foreground hover:bg-accent hover:text-foreground hover:border-muted-foreground/30 transition-all duration-200"
               >
                 <span>{s.emoji}</span>
                 <span>{s.label}</span>
@@ -226,7 +237,7 @@ const Index = () => {
             <span className="text-border">|</span>
             <Link
               to="/join"
-              className="text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-all duration-200"
+              className="text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               Join an album
             </Link>
