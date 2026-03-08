@@ -31,6 +31,12 @@ const albums = [
     thumbs: [yosemiteThumb1, yosemiteThumb2, yosemiteThumb3],
   },
   {
+    title: "RTF Club",
+    meta: "Mar 2025  ·  4 photos",
+    cover: rtfCover,
+    thumbs: [rtfThumb1, rtfThumb2, rtfThumb3],
+  },
+  {
     title: "23rd Birthday Party",
     meta: "Mar 2025  ·  4 photos",
     cover: bdayCover,
@@ -41,12 +47,6 @@ const albums = [
     meta: "Feb 2025  ·  5 photos",
     cover: startupCover,
     thumbs: [startupThumb1, startupThumb2, startupThumb3],
-  },
-  {
-    title: "RTF Club",
-    meta: "Mar 2025  ·  4 photos",
-    cover: rtfCover,
-    thumbs: [rtfThumb1, rtfThumb2, rtfThumb3],
   },
 ];
 
