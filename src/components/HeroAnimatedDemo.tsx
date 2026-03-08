@@ -247,68 +247,73 @@ export default function HeroAnimatedDemo() {
         </Link>
       </div>
 
-      {/* ── photos ── */}
-      {photos.map((p, i) => (
-        <AnimatedPhoto
-          key={i}
-          photo={p}
-          index={i}
-          phase={phase}
-          isMobile={isMobile}
-        />
-      ))}
+      <div className="absolute left-0 right-0 bottom-0 overflow-hidden" style={animationStageStyle}>
+        {/* ── photos ── */}
+        {photos.map((p, i) => (
+          <AnimatedPhoto
+            key={i}
+            photo={p}
+            index={i}
+            phase={phase}
+            isMobile={isMobile}
+          />
+        ))}
 
-      {/* ── horizontal rule (line phase) ── */}
-      <motion.div
-        animate={{ opacity: phase === "line" ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-        className="absolute top-1/2 left-0 right-0 h-px bg-border pointer-events-none"
-      />
-
-      {/* ── album labels (albums phase) ── */}
-      {displayedGroups.map((g) => (
+        {/* ── horizontal rule (line phase) ── */}
         <motion.div
-          key={g.label}
-          animate={{ opacity: phase === "albums" ? 1 : 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          style={{ left: `${g.left}%` }}
-          className="absolute top-1/2 -translate-x-1/2 z-10 pointer-events-none"
-        >
-          <div style={{ transform: "translateY(120px)" }} className="text-center">
-            <p className="text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
-              {g.label}
-            </p>
-            <p className="text-[11px] font-sans font-light text-muted-foreground mt-1">
-              {g.meta}
-            </p>
-            <div className="flex items-center justify-center gap-1.5 mt-2">
-              <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
-                <User size={10} className="text-muted-foreground" />
+          animate={{ opacity: phase === "line" ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+          className="absolute top-1/2 left-0 right-0 h-px bg-border pointer-events-none"
+        />
+
+        {/* ── album labels (albums phase) ── */}
+        {displayedGroups.map((g) => (
+          <motion.div
+            key={g.label}
+            animate={{ opacity: phase === "albums" ? 1 : 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            style={{ left: `${g.left}%` }}
+            className="absolute top-1/2 -translate-x-1/2 z-10 pointer-events-none"
+          >
+            <div
+              style={{ transform: `translateY(${isMobile ? 88 : 120}px)` }}
+              className="text-center"
+            >
+              <p className="text-[12px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
+                {g.label}
+              </p>
+              <p className="text-[10px] sm:text-[11px] font-sans font-light text-muted-foreground mt-1">
+                {g.meta}
+              </p>
+              <div className="flex items-center justify-center gap-1.5 mt-2">
+                <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
+                  <User size={10} className="text-muted-foreground" />
+                </div>
+                <span className="text-[10px] font-sans font-light text-muted-foreground">
+                  {g.creator}
+                </span>
               </div>
-              <span className="text-[10px] font-sans font-light text-muted-foreground">
-                {g.creator}
-              </span>
             </div>
-          </div>
-        </motion.div>
-      ))}
+          </motion.div>
+        ))}
 
-      {/* ── CTA (albums phase) ── */}
-      <motion.div
-        animate={{ opacity: phase === "albums" ? 1 : 0 }}
-        transition={{ duration: 0.5, delay: 0.6 }}
-        className="absolute bottom-[60px] left-[8vw] z-20"
-      >
-        <Link
-          to="/dashboard"
-          className="text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
+        {/* ── CTA (albums phase) ── */}
+        <motion.div
+          animate={{ opacity: phase === "albums" ? 1 : 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="absolute bottom-[28px] sm:bottom-[60px] left-[8vw] z-20"
         >
-          Browse your albums →
-        </Link>
-      </motion.div>
+          <Link
+            to="/dashboard"
+            className="text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
+          >
+            Browse your albums →
+          </Link>
+        </motion.div>
 
-      {/* ── phase indicator ── */}
-      <PhaseIndicator phase={phase} />
+        {/* ── phase indicator ── */}
+        <PhaseIndicator phase={phase} />
+      </div>
     </div>
   );
 }
