@@ -14,6 +14,8 @@ import nightThumb3 from "@/assets/night-thumb3.jpg";
 
 import startupCover from "@/assets/startup-cover.jpg";
 import startupThumb1 from "@/assets/startup-thumb1.jpg";
+import startupThumb2 from "@/assets/startup-thumb2.png";
+import startupThumb3 from "@/assets/startup-thumb3.jpg";
 
 const albums = [
   {
