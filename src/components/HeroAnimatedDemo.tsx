@@ -219,6 +219,7 @@ export default function HeroAnimatedDemo() {
   const phase = PHASE_ORDER[phaseIndex];
 
   const displayedGroups = isMobile ? groups.slice(0, 2) : groups;
+  const animationStageStyle = isMobile ? { top: MOBILE_ANIMATION_TOP } : { top: "0%" };
 
   const advancePhase = useCallback(() => {
     setPhaseIndex((prev) => (prev + 1) % PHASE_ORDER.length);
