@@ -12,6 +12,9 @@ import nightThumb1 from "@/assets/night-thumb1.jpg";
 import nightThumb2 from "@/assets/night-thumb2.jpg";
 import nightThumb3 from "@/assets/night-thumb3.jpg";
 
+import startupCover from "@/assets/startup-cover.jpg";
+import startupThumb1 from "@/assets/startup-thumb1.jpg";
+
 const albums = [
   {
     title: "Yosemite Trip",
