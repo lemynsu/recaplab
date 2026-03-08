@@ -32,18 +32,18 @@ interface PhotoData {
 /* ─── data ─────────────────────────────────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 8, left: 7, rot: -3 }, lineLeft: 2 },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 12, left: 22, rot: 2 }, lineLeft: 10 },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 6, left: 52, rot: -1.5 }, lineLeft: 18 },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 10, left: 72, rot: 3.5 }, lineLeft: 26 },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 10, left: 88, rot: -2 }, lineLeft: 34 },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 38, left: 4, rot: 1 }, lineLeft: 42 },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 42, left: 32, rot: -4 }, lineLeft: 50 },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 35, left: 60, rot: 2.5 }, lineLeft: 58 },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 40, left: 80, rot: -1 }, lineLeft: 66 },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 68, left: 12, rot: 3 }, lineLeft: 74 },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 72, left: 42, rot: -2.5 }, lineLeft: 82 },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 66, left: 75, rot: 1.5 }, lineLeft: 90 },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 55, left: 5, rot: -3 }, lineLeft: 2 },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 12, left: 55, rot: 2 }, lineLeft: 10 },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 8, left: 72, rot: -1.5 }, lineLeft: 18 },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 15, left: 88, rot: 3.5 }, lineLeft: 26 },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 60, left: 88, rot: -2 }, lineLeft: 34 },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 65, left: 25, rot: 1 }, lineLeft: 42 },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 38, left: 62, rot: -4 }, lineLeft: 50 },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 40, left: 82, rot: 2.5 }, lineLeft: 58 },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 50, left: 45, rot: -1 }, lineLeft: 66 },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 72, left: 15, rot: 3 }, lineLeft: 74 },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 75, left: 55, rot: -2.5 }, lineLeft: 82 },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 70, left: 75, rot: 1.5 }, lineLeft: 90 },
 ];
 
 const groups = [
@@ -224,12 +224,8 @@ export default function HeroAnimatedDemo() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
-      {/* ── hero text — centered vertically ── */}
-      <motion.div
-        animate={{ opacity: phase === "scatter" ? 1 : 0 }}
-        transition={{ duration: 0.6 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none text-center"
-      >
+      {/* ── hero text — top left, always visible ── */}
+      <div className="absolute top-[80px] sm:top-[72px] left-[8vw] z-30 pointer-events-none">
         <h1 className="font-display font-light text-[38px] sm:text-[54px] md:text-[72px] leading-[1.08] tracking-[-0.02em] text-foreground">
           Every event deserves
           <br />
@@ -241,7 +237,7 @@ export default function HeroAnimatedDemo() {
         >
           Create your shared album →
         </Link>
-      </motion.div>
+      </div>
 
       {/* ── photos ── */}
       {photos.map((p, i) => (
