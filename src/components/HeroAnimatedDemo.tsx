@@ -80,7 +80,7 @@ const MOBILE_PHOTO_WIDTH = 46;
 function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
   const g = groups[photo.group];
   const d = deck[photo.idx];
-  const albumW = isMobile ? 100 : 180;
+  const albumW = isMobile ? MOBILE_ALBUM_WIDTH : 180;
   const scatter = isMobile ? photo.mobileScatter : photo.scatter;
 
   switch (phase) {
@@ -89,7 +89,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
         left: `${scatter.left}%`,
         top: `${scatter.top}%`,
         rotate: scatter.rot,
-        width: isMobile ? 52 : 88,
+        width: isMobile ? MOBILE_PHOTO_WIDTH : 88,
         x: 0,
         y: 0,
         opacity: 1,
@@ -98,24 +98,24 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
     case "line":
       return {
         left: `${photo.lineLeft}%`,
-        top: isMobile ? "60%" : "50%",
+        top: isMobile ? "38%" : "50%",
         rotate: 0,
-        width: isMobile ? 52 : 86,
+        width: isMobile ? MOBILE_PHOTO_WIDTH : 86,
         x: 0,
-        y: -55,
+        y: isMobile ? -28 : -55,
         opacity: 1,
         paddingBottom: 3,
       };
     case "albums":
       return {
         left: `${g.left}%`,
-        top: isMobile ? "60%" : "50%",
+        top: isMobile ? "42%" : "50%",
         rotate: d.rot,
         width: albumW,
-        x: d.x * (isMobile ? 0.6 : 1),
-        y: d.y * (isMobile ? 0.7 : 1),
+        x: d.x * (isMobile ? 0.45 : 1),
+        y: d.y * (isMobile ? 0.45 : 1),
         opacity: d.opacity,
-        paddingBottom: isMobile ? 12 : 18,
+        paddingBottom: isMobile ? 10 : 18,
       };
   }
 }
