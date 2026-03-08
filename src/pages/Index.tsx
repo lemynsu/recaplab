@@ -14,6 +14,15 @@ import nightThumb1 from "@/assets/night-thumb1.jpg";
 import nightThumb2 from "@/assets/night-thumb2.jpg";
 import nightThumb3 from "@/assets/night-thumb3.jpg";
 
+import runCover from "@/assets/run-cover.jpg";
+import runThumb1 from "@/assets/run-thumb1.jpg";
+
+import partyCover from "@/assets/party-cover.jpg";
+import partyThumb1 from "@/assets/party-thumb1.jpg";
+
+import hawaiiCover from "@/assets/hawaii-cover.jpg";
+import hawaiiThumb1 from "@/assets/hawaii-thumb1.jpg";
+
 const albums = [
   {
     title: "Yosemite Trip",
@@ -22,10 +31,28 @@ const albums = [
     thumbs: [yosemiteThumb1, yosemiteThumb2, yosemiteThumb3],
   },
   {
+    title: "RTF Run Club",
+    meta: "Feb 2025  ·  12 photos",
+    cover: runCover,
+    thumbs: [runThumb1, partyThumb1, hikeThumb1],
+  },
+  {
+    title: "24th Birthday Party",
+    meta: "Mar 2025  ·  38 photos",
+    cover: partyCover,
+    thumbs: [partyThumb1, runCover, nightThumb1],
+  },
+  {
     title: "Winter Hike",
     meta: "Jan 2025  ·  4 photos",
     cover: hikeCover,
     thumbs: [hikeThumb1, yosemiteThumb1, hikeThumb3],
+  },
+  {
+    title: "Hawaii Roadtrip",
+    meta: "Dec 2024  ·  56 photos",
+    cover: hawaiiCover,
+    thumbs: [hawaiiThumb1, yosemiteThumb3, nightThumb3],
   },
   {
     title: "Night & Nature",
@@ -33,6 +60,15 @@ const albums = [
     cover: nightThumb2,
     thumbs: [nightThumb1, nightThumb2, nightThumb3],
   },
+];
+
+const suggestions = [
+  { emoji: "🎂", label: "Birthday Party" },
+  { emoji: "🏃", label: "Run Club" },
+  { emoji: "✈️", label: "Trip with Friends" },
+  { emoji: "💼", label: "Team Offsite" },
+  { emoji: "🎓", label: "Graduation" },
+  { emoji: "🏕️", label: "Weekend Camping" },
 ];
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -43,7 +79,17 @@ const Index = () => {
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm">
         <div className="flex items-center justify-between px-6 md:px-12 py-5 max-w-[1400px] mx-auto">
-          <span className="text-[12px] font-sans font-normal uppercase tracking-[0.2em] text-foreground">
+          <span
+            className="text-[14px] font-sans font-bold uppercase tracking-[0.2em]"
+            style={{
+              background: "linear-gradient(180deg, hsl(var(--foreground)) 0%, hsl(var(--muted-foreground)) 50%, hsl(var(--foreground)) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+              textShadow: "none",
+              filter: "contrast(1.2)",
+            }}
+          >
             ENCORE
           </span>
           <div className="flex items-center gap-0 text-[13px] font-sans font-normal text-foreground">
@@ -59,9 +105,9 @@ const Index = () => {
       </nav>
 
       {/* Hero */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative min-h-screen overflow-hidden">
         {/* Top area — text */}
-        <div className="h-[55vh] flex items-center px-6 md:px-[8vw] pt-16">
+        <div className="h-[50vh] flex items-center px-6 md:px-[8vw] pt-16">
           <div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -90,7 +136,7 @@ const Index = () => {
         </div>
 
         {/* Bottom area — film strip */}
-        <div className="h-[45vh] relative">
+        <div className="relative">
           {/* Label */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -108,7 +154,7 @@ const Index = () => {
 
           {/* Strip container */}
           <div
-            className="flex flex-row gap-4 pl-6 md:pl-[8vw] pr-0 items-start overflow-x-auto md:overflow-x-visible scrollbar-hide"
+            className="flex flex-row gap-4 pl-6 md:pl-[8vw] pr-6 items-start overflow-x-auto scrollbar-hide pb-6"
             style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
           >
             {albums.map((album, i) => (
@@ -119,22 +165,22 @@ const Index = () => {
                 transition={{
                   duration: 0.7,
                   ease,
-                  delay: 0.5 + i * 0.14,
+                  delay: 0.5 + i * 0.1,
                 }}
-                className="flex-shrink-0 w-[220px] sm:w-[240px] md:w-[280px] rounded-[3px] overflow-hidden"
+                className="flex-shrink-0 w-[220px] sm:w-[240px] md:w-[260px] rounded-xl overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                 style={{
-                  height: "calc(38vh)",
-                  background: "#FDFCF9",
+                  height: "320px",
+                  background: "hsl(40 10% 98%)",
                   border: "1px solid hsl(var(--border))",
                   boxShadow: "2px 6px 24px rgba(0,0,0,0.09)",
                 }}
               >
                 {/* Cover photo — 65% */}
-                <div className="w-full" style={{ height: "65%" }}>
+                <div className="w-full overflow-hidden" style={{ height: "65%" }}>
                   <img
                     src={album.cover}
                     alt={album.title}
-                    className="w-full h-full object-cover brightness-[0.7] contrast-[1.05]"
+                    className="w-full h-full object-cover brightness-[0.75] contrast-[1.05] transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
 
@@ -175,6 +221,45 @@ const Index = () => {
             }}
           />
         </div>
+
+        {/* Suggestions section */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease, delay: 1.1 }}
+          className="px-6 md:px-[8vw] pt-10 pb-16"
+        >
+          <p className="text-[11px] font-sans font-medium uppercase tracking-[0.15em] text-muted-foreground mb-4">
+            Create an album for
+          </p>
+          <div className="flex flex-wrap gap-2 mb-6">
+            {suggestions.map((s) => (
+              <Link
+                key={s.label}
+                to="/create"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-border/60 bg-card text-[12px] font-sans font-normal text-foreground hover:bg-accent hover:border-border transition-all duration-200"
+              >
+                <span>{s.emoji}</span>
+                <span>{s.label}</span>
+              </Link>
+            ))}
+          </div>
+          <div className="flex items-center gap-4 text-[13px] font-sans">
+            <Link
+              to="/create"
+              className="text-foreground font-medium hover:underline underline-offset-4 transition-all duration-200"
+            >
+              Create album &rarr;
+            </Link>
+            <span className="text-border">|</span>
+            <Link
+              to="/join"
+              className="text-muted-foreground hover:text-foreground hover:underline underline-offset-4 transition-all duration-200"
+            >
+              Join an album
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </div>
   );
