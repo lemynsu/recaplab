@@ -6,22 +6,11 @@ import yosemiteThumb1 from "@/assets/yosemite-thumb1.jpg";
 import yosemiteThumb2 from "@/assets/yosemite-thumb2.jpg";
 import yosemiteThumb3 from "@/assets/yosemite-thumb3.jpg";
 
-import hikeCover from "@/assets/hike-cover.jpg";
-import hikeThumb1 from "@/assets/hike-thumb1.jpg";
 import hikeThumb3 from "@/assets/hike-thumb3.jpg";
 
 import nightThumb1 from "@/assets/night-thumb1.jpg";
 import nightThumb2 from "@/assets/night-thumb2.jpg";
 import nightThumb3 from "@/assets/night-thumb3.jpg";
-
-import runCover from "@/assets/run-cover.jpg";
-import runThumb1 from "@/assets/run-thumb1.jpg";
-
-import partyCover from "@/assets/party-cover.jpg";
-import partyThumb1 from "@/assets/party-thumb1.jpg";
-
-import hawaiiCover from "@/assets/hawaii-cover.jpg";
-import hawaiiThumb1 from "@/assets/hawaii-thumb1.jpg";
 
 const albums = [
   {
@@ -31,34 +20,22 @@ const albums = [
     thumbs: [yosemiteThumb1, yosemiteThumb2, yosemiteThumb3],
   },
   {
-    title: "RTF Run Club",
-    meta: "Feb 2025  ·  12 photos",
-    cover: runCover,
-    thumbs: [runThumb1, partyThumb1, hikeThumb1],
-  },
-  {
-    title: "24th Birthday Party",
-    meta: "Mar 2025  ·  38 photos",
-    cover: partyCover,
-    thumbs: [partyThumb1, runCover, nightThumb1],
-  },
-  {
-    title: "Winter Hike",
-    meta: "Jan 2025  ·  4 photos",
-    cover: hikeCover,
-    thumbs: [hikeThumb1, yosemiteThumb1, hikeThumb3],
-  },
-  {
-    title: "Hawaii Roadtrip",
-    meta: "Dec 2024  ·  56 photos",
-    cover: hawaiiCover,
-    thumbs: [hawaiiThumb1, yosemiteThumb3, nightThumb3],
-  },
-  {
     title: "Night & Nature",
     meta: "Jan 2025  ·  4 photos",
     cover: nightThumb2,
     thumbs: [nightThumb1, nightThumb2, nightThumb3],
+  },
+  {
+    title: "Winter Trails",
+    meta: "Jan 2025  ·  6 photos",
+    cover: hikeThumb3,
+    thumbs: [yosemiteThumb3, nightThumb1, yosemiteThumb1],
+  },
+  {
+    title: "Golden Hour",
+    meta: "Dec 2024  ·  8 photos",
+    cover: yosemiteThumb2,
+    thumbs: [nightThumb3, hikeThumb3, yosemiteThumb3],
   },
 ];
 
@@ -86,7 +63,6 @@ const Index = () => {
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              textShadow: "none",
               filter: "contrast(1.2)",
             }}
           >
@@ -167,7 +143,7 @@ const Index = () => {
                   ease,
                   delay: 0.5 + i * 0.1,
                 }}
-                className="flex-shrink-0 w-[220px] sm:w-[240px] md:w-[260px] rounded-xl overflow-hidden cursor-pointer group transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                className="flex-shrink-0 w-[220px] sm:w-[240px] md:w-[260px] rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                 style={{
                   height: "320px",
                   background: "hsl(40 10% 98%)",
