@@ -1,5 +1,9 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 import yosemiteCover from "@/assets/yosemite-cover.jpg";
 import yosemiteThumb1 from "@/assets/yosemite-thumb1.jpg";
@@ -58,6 +62,56 @@ const suggestions = [
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const Index = () => {
+  const [accessCode, setAccessCode] = useState("");
+  const [joining, setJoining] = useState(false);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleJoin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const code = accessCode.trim();
+    if (!code) return;
+
+    // If not signed in, redirect to auth with return URL
+    if (!user) {
+      navigate(`/auth?redirect=/join&code=${encodeURIComponent(code)}`);
+      return;
+    }
+
+    setJoining(true);
+
+    // Try access code
+    const { data: byCode } = await supabase
+      .from("events")
+      .select("slug")
+      .eq("access_code", code)
+      .single();
+
+    if (byCode) {
+      navigate(`/e/${byCode.slug}`);
+      return;
+    }
+
+    // Try slug
+    let slug = code;
+    const urlMatch = slug.match(/\/e\/([^/?#]+)/);
+    if (urlMatch) slug = urlMatch[1];
+
+    const { data: bySlug } = await supabase
+      .from("events")
+      .select("slug")
+      .eq("slug", slug)
+      .single();
+
+    if (bySlug) {
+      navigate(`/e/${bySlug.slug}`);
+      return;
+    }
+
+    toast.error("Album not found. Check the code and try again.");
+    setJoining(false);
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
@@ -66,7 +120,7 @@ const Index = () => {
           <span
             className="text-[15px] font-sans font-black uppercase tracking-[0.3em] relative select-none"
             style={{
-              background: "linear-gradient(180deg, hsl(0 0% 95%) 0%, hsl(0 0% 45%) 50%, hsl(0 0% 85%) 100%)",
+              background: "linear-gradient(180deg, hsl(0 0% 10%) 0%, hsl(0 0% 55%) 50%, hsl(0 0% 15%) 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -150,12 +204,12 @@ const Index = () => {
                   ease,
                   delay: 0.5 + i * 0.1,
                 }}
-                className="flex-shrink-0 w-[220px] sm:w-[240px] md:w-[260px] rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1"
+                className="flex-shrink-0 w-[220px] sm:w-[240px] md:w-[260px] rounded-xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                 style={{
                   height: "320px",
-                  background: "hsl(0 0% 8%)",
-                  border: "1px solid hsl(0 0% 14%)",
-                  boxShadow: "0 8px 32px rgba(0,0,0,0.4)",
+                  background: "hsl(var(--card))",
+                  border: "1px solid hsl(var(--border))",
+                  boxShadow: "2px 6px 24px rgba(0,0,0,0.08)",
                 }}
               >
                 {/* Cover photo — 65% */}
@@ -163,7 +217,7 @@ const Index = () => {
                   <img
                     src={album.cover}
                     alt={album.title}
-                    className="w-full h-full object-cover brightness-[0.8] contrast-[1.1] saturate-[0.85]"
+                    className="w-full h-full object-cover brightness-[0.85] contrast-[1.05]"
                   />
                 </div>
 
@@ -174,7 +228,7 @@ const Index = () => {
                       key={j}
                       src={thumb}
                       alt=""
-                      className="h-full object-cover brightness-[0.65] contrast-[1.1] saturate-[0.8]"
+                      className="h-full object-cover brightness-[0.75] contrast-[1.05]"
                       style={{ width: "calc(33.333% - 0.67px)" }}
                     />
                   ))}
@@ -205,43 +259,50 @@ const Index = () => {
           />
         </div>
 
-        {/* Suggestions section */}
+        {/* Suggestions + Join section */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease, delay: 1.1 }}
           className="px-6 md:px-[8vw] pt-10 pb-16"
         >
+          {/* Create suggestions */}
           <p className="text-[10px] font-sans font-medium uppercase tracking-[0.2em] text-muted-foreground mb-4">
             Create an album for
           </p>
-          <div className="flex flex-wrap gap-2 mb-6">
+          <div className="flex flex-wrap gap-2 mb-10">
             {suggestions.map((s) => (
               <Link
                 key={s.label}
                 to="/create"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-border bg-card text-[12px] font-sans font-normal text-secondary-foreground hover:bg-accent hover:text-foreground hover:border-muted-foreground/30 transition-all duration-200"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-border bg-card text-[12px] font-sans font-normal text-foreground hover:bg-accent hover:border-muted-foreground/30 transition-all duration-200"
               >
                 <span>{s.emoji}</span>
                 <span>{s.label}</span>
               </Link>
             ))}
           </div>
-          <div className="flex items-center gap-4 text-[13px] font-sans">
-            <Link
-              to="/create"
-              className="text-foreground font-medium hover:underline underline-offset-4 transition-all duration-200"
+
+          {/* Join an album */}
+          <p className="text-[10px] font-sans font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
+            Join an album
+          </p>
+          <form onSubmit={handleJoin} className="flex items-center gap-2 max-w-sm">
+            <input
+              type="text"
+              value={accessCode}
+              onChange={(e) => setAccessCode(e.target.value)}
+              placeholder="Enter access code"
+              className="flex-1 h-10 px-3.5 rounded-lg border border-border bg-card text-[13px] font-sans text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-ring/30 transition-all duration-200"
+            />
+            <button
+              type="submit"
+              disabled={joining || !accessCode.trim()}
+              className="h-10 px-5 rounded-lg bg-primary text-primary-foreground text-[12px] font-sans font-medium tracking-wide uppercase hover:opacity-90 disabled:opacity-40 transition-all duration-200"
             >
-              Create album &rarr;
-            </Link>
-            <span className="text-border">|</span>
-            <Link
-              to="/join"
-              className="text-muted-foreground hover:text-foreground transition-colors duration-200"
-            >
-              Join an album
-            </Link>
-          </div>
+              {joining ? "..." : "Join →"}
+            </button>
+          </form>
         </motion.div>
       </section>
     </div>
