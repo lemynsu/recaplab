@@ -224,12 +224,8 @@ export default function HeroAnimatedDemo() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
-      {/* ── hero text — centered vertically ── */}
-      <motion.div
-        animate={{ opacity: phase === "scatter" ? 1 : 0 }}
-        transition={{ duration: 0.6 }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none text-center"
-      >
+      {/* ── hero text — top left, always visible ── */}
+      <div className="absolute top-[80px] sm:top-[72px] left-[8vw] z-30 pointer-events-none">
         <h1 className="font-display font-light text-[38px] sm:text-[54px] md:text-[72px] leading-[1.08] tracking-[-0.02em] text-foreground">
           Every event deserves
           <br />
@@ -241,7 +237,7 @@ export default function HeroAnimatedDemo() {
         >
           Create your shared album →
         </Link>
-      </motion.div>
+      </div>
 
       {/* ── photos ── */}
       {photos.map((p, i) => (
