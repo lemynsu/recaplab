@@ -40,6 +40,12 @@ const albums = [
     cover: yosemiteThumb2,
     thumbs: [nightThumb3, hikeThumb3, yosemiteThumb3],
   },
+  {
+    title: "Startup Design Team",
+    meta: "Feb 2025  ·  5 photos",
+    cover: startupCover,
+    thumbs: [startupThumb1, nightThumb2, yosemiteThumb1],
+  },
 ];
 
 const suggestions = [
