@@ -1,45 +1,38 @@
 import { Link } from "react-router-dom";
-import { motion, useInView } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] as const },
-  }),
-};
+import album1 from "@/assets/album-1.jpg";
+import album2 from "@/assets/album-2.jpg";
+import album3 from "@/assets/album-3.jpg";
+import album4 from "@/assets/album-4.jpg";
+import album5 from "@/assets/album-5.jpg";
+import album6 from "@/assets/album-6.jpg";
 
-const ScrollReveal = ({ children, className }: { children: React.ReactNode; className?: string }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 16 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
-const steps = [
-  { num: "01", title: "CREATE", desc: "Set up your event album in under a minute." },
-  { num: "02", title: "SHARE", desc: "Send one link or QR code. No app needed." },
-  { num: "03", title: "RELIVE", desc: "Everyone uploads. You browse, react, and keep it forever." },
-];
-
-const useCases = [
-  { title: "Weddings & Celebrations", desc: "Collect every guest's perspective into one beautiful, shared album." },
-  { title: "Friend Trips & Hangouts", desc: "One link, everyone's photos. No more asking people to send theirs." },
-  { title: "Run Clubs & Weekly Events", desc: "Recurring moments deserve a place to live beyond the group chat." },
+const albums = [
+  { src: album1, label: "Rooftop Party" },
+  { src: album2, label: "Sarah's Wedding" },
+  { src: album3, label: "Neon Festival" },
+  { src: album4, label: "Mia's Birthday" },
+  { src: album5, label: "Graduation '25" },
+  { src: album6, label: "Beach Bonfire" },
 ];
 
 const Index = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+
+  // Zoom: starts at scale 4 (single center album fills view) → zooms out to full grid
+  const scale = useTransform(scrollYProgress, [0, 0.55], [4, 1]);
+  const surroundingOpacity = useTransform(scrollYProgress, [0, 0.35], [0, 1]);
+  const headlineOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const headlineY = useTransform(scrollYProgress, [0, 0.2], [0, -30]);
+  const ctaOpacity = useTransform(scrollYProgress, [0.5, 0.65], [0, 1]);
+  const ctaY = useTransform(scrollYProgress, [0.5, 0.65], [20, 0]);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
@@ -60,118 +53,97 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* SECTION 1 — HERO */}
-      <section className="h-screen flex flex-col justify-center px-6 md:px-12 max-w-[1400px] mx-auto">
-        <div className="max-w-3xl">
-          <motion.p
-            custom={0}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="text-[11px] font-sans font-normal uppercase tracking-[0.15em] text-muted-foreground mb-8"
-          >
-            SHARED PHOTO ALBUMS
-          </motion.p>
-          <motion.h1
-            custom={1}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="font-display font-light text-[52px] md:text-[88px] leading-[1.05] tracking-[-0.02em] text-foreground"
-          >
-            Every moment,
-            <br />
-            deserves an encore.
-          </motion.h1>
+      {/* SECTION 1 — Scrollable zoom hero */}
+      <div ref={containerRef} className="relative h-[280vh]">
+        <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
+          {/* Headline — fades out on scroll */}
           <motion.div
-            custom={3}
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            className="mt-12"
+            style={{ opacity: headlineOpacity, y: headlineY }}
+            className="absolute z-20 text-center pointer-events-none px-6"
           >
-            <Link
-              to="/create"
-              className="text-[14px] font-sans font-normal text-foreground hover:underline underline-offset-4 transition-all duration-200"
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-[11px] font-sans font-normal uppercase tracking-[0.15em] text-muted-foreground mb-6"
             >
-              Create your album &rarr;
-            </Link>
+              SHARED PHOTO ALBUMS
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="font-display font-light text-[48px] sm:text-[64px] md:text-[88px] leading-[1.05] tracking-[-0.02em] text-foreground"
+            >
+              Every event deserves
+              <br />
+              a better album.
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mt-8 text-[13px] font-sans font-light text-muted-foreground"
+            >
+              Scroll to explore
+            </motion.p>
+          </motion.div>
+
+          {/* Album grid — zooms out from center */}
+          <motion.div
+            style={{ scale }}
+            className="grid grid-cols-3 gap-2 md:gap-3 w-[88vw] max-w-3xl"
+          >
+            {albums.map((album, i) => {
+              const isCenter = i === 1;
+              return (
+                <motion.div
+                  key={album.label}
+                  style={{ opacity: isCenter ? 1 : surroundingOpacity }}
+                  className="relative aspect-[3/4] overflow-hidden rounded-[2px]"
+                >
+                  <img
+                    src={album.src}
+                    alt={album.label}
+                    className="w-full h-full object-cover"
+                  />
+                  <motion.div
+                    style={{ opacity: surroundingOpacity }}
+                    className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-foreground/40 to-transparent"
+                  >
+                    <p className="text-[11px] font-sans font-normal uppercase tracking-[0.1em] text-background">
+                      {album.label}
+                    </p>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+
+          {/* CTA — appears after zoom completes */}
+          <motion.div
+            style={{ opacity: ctaOpacity, y: ctaY }}
+            className="absolute bottom-16 md:bottom-20 z-20 flex flex-col items-center gap-5"
+          >
+            <div className="flex items-center gap-6 text-[13px] font-sans font-normal">
+              <Link
+                to="/create"
+                className="border border-foreground text-foreground uppercase tracking-[0.1em] px-8 py-3 rounded-[2px] hover:bg-foreground hover:text-background transition-all duration-200"
+              >
+                Create album
+              </Link>
+              <Link
+                to="/join"
+                className="text-foreground hover:underline underline-offset-4 transition-all duration-200"
+              >
+                Join event &rarr;
+              </Link>
+            </div>
           </motion.div>
         </div>
-      </section>
+      </div>
 
-      <div className="mx-6 md:mx-12 max-w-[1400px] lg:mx-auto border-t border-border" />
-
-      {/* SECTION 2 — HOW IT WORKS */}
-      <section className="py-[80px] md:py-[120px] px-6 md:px-12 max-w-[1400px] mx-auto">
-        <ScrollReveal>
-          <p className="text-[11px] font-sans font-normal uppercase tracking-[0.15em] text-muted-foreground mb-16">
-            HOW IT WORKS
-          </p>
-        </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 md:divide-x md:divide-border">
-          {steps.map((step, i) => (
-            <ScrollReveal key={step.num} className={`${i > 0 ? "mt-12 md:mt-0" : ""} md:px-8 first:md:pl-0 last:md:pr-0`}>
-              <span className="font-display font-light text-[48px] leading-none text-foreground">
-                {step.num}
-              </span>
-              <div className="border-t border-border mt-6 pt-6">
-                <p className="text-[14px] font-sans font-normal uppercase tracking-[0.1em] text-foreground mb-3">
-                  {step.title}
-                </p>
-                <p className="text-[14px] font-sans font-light leading-[1.7] text-muted-foreground">
-                  {step.desc}
-                </p>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      <div className="mx-6 md:mx-12 max-w-[1400px] lg:mx-auto border-t border-border" />
-
-      {/* SECTION 3 — FOR EVERY MOMENT */}
-      <section className="py-[80px] md:py-[120px] px-6 md:px-12 max-w-[1400px] mx-auto">
-        <ScrollReveal>
-          <p className="text-[11px] font-sans font-normal uppercase tracking-[0.15em] text-muted-foreground mb-16">
-            MADE FOR
-          </p>
-        </ScrollReveal>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
-          {useCases.map((uc) => (
-            <ScrollReveal key={uc.title}>
-              <h3 className="font-display font-normal text-[28px] leading-[1.2] text-foreground mb-4">
-                {uc.title}
-              </h3>
-              <p className="text-[14px] font-sans font-light leading-[1.7] text-muted-foreground">
-                {uc.desc}
-              </p>
-            </ScrollReveal>
-          ))}
-        </div>
-      </section>
-
-      {/* SECTION 4 — CLOSING CTA */}
-      <section className="py-[120px] md:py-[160px] px-6 md:px-12 text-center">
-        <ScrollReveal className="flex flex-col items-center">
-          <h2 className="font-display font-light text-[48px] md:text-[64px] leading-[1.1] tracking-[-0.02em] text-foreground">
-            Your next event
-            <br />
-            starts here.
-          </h2>
-          <Link
-            to="/create"
-            className="mt-10 inline-block border border-foreground text-[13px] font-sans font-normal uppercase tracking-[0.1em] px-10 py-3.5 rounded-[2px] text-foreground hover:bg-foreground hover:text-background transition-all duration-200"
-          >
-            CREATE FREE ALBUM
-          </Link>
-          <p className="mt-5 text-[13px] font-sans font-normal text-muted-foreground">
-            No account required to join an event.
-          </p>
-        </ScrollReveal>
-      </section>
-
-      {/* FOOTER */}
+      {/* SECTION 2 — Footer */}
       <footer className="border-t border-border">
         <div className="flex items-center justify-between px-6 md:px-12 py-6 max-w-[1400px] mx-auto">
           <span className="text-[12px] font-sans font-normal text-muted-foreground">
