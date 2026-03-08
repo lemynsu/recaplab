@@ -26,6 +26,7 @@ interface PhotoData {
   group: number;
   idx: number;
   scatter: { top: number; left: number; rot: number };
+  mobileScatter: { top: number; left: number; rot: number };
   lineLeft: number;
 }
 
