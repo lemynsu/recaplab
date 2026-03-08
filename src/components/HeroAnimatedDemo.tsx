@@ -269,11 +269,11 @@ export default function HeroAnimatedDemo() {
           style={{ left: `${g.left}%` }}
           className="absolute top-1/2 -translate-x-1/2 z-10 pointer-events-none"
         >
-          <div style={{ transform: "translateY(110px)" }} className="text-center">
-            <p className="text-[11px] font-sans font-medium uppercase tracking-[0.12em] text-foreground">
+          <div style={{ transform: "translateY(120px)" }} className="text-center">
+            <p className="text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
               {g.label}
             </p>
-            <p className="text-[11px] font-sans font-light text-muted-foreground mt-0.5">
+            <p className="text-[11px] font-sans font-light text-muted-foreground mt-1">
               {g.meta}
             </p>
           </div>
