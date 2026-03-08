@@ -134,7 +134,7 @@ const Index = () => {
                   <img
                     src={album.cover}
                     alt={album.title}
-                    className="w-full h-full object-cover grayscale"
+                    className="w-full h-full object-cover brightness-[0.7] contrast-[1.05]"
                   />
                 </div>
 
