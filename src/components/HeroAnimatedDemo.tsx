@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -46,9 +47,9 @@ const photos: PhotoData[] = [
 ];
 
 const groups = [
-  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", left: 18 },
-  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", left: 50 },
-  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", left: 82 },
+  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 18 },
+  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 50 },
+  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 82 },
 ];
 
 const deck = [
@@ -276,6 +277,14 @@ export default function HeroAnimatedDemo() {
             <p className="text-[11px] font-sans font-light text-muted-foreground mt-1">
               {g.meta}
             </p>
+            <div className="flex items-center justify-center gap-1.5 mt-2">
+              <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
+                <User size={10} className="text-muted-foreground" />
+              </div>
+              <span className="text-[10px] font-sans font-light text-muted-foreground">
+                {g.creator}
+              </span>
+            </div>
           </div>
         </motion.div>
       ))}
