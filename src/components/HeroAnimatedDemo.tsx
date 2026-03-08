@@ -47,9 +47,9 @@ const photos: PhotoData[] = [
 ];
 
 const groups = [
-  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", left: 18 },
-  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", left: 50 },
-  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", left: 82 },
+  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 18 },
+  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 50 },
+  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 82 },
 ];
 
 const deck = [
