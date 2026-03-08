@@ -14,16 +14,196 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      events: {
+        Row: {
+          access_code: string | null
+          cover_photo_url: string | null
+          created_at: string
+          date: string | null
+          description: string | null
+          id: string
+          organizer_id: string
+          slug: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          access_code?: string | null
+          cover_photo_url?: string | null
+          created_at?: string
+          date?: string | null
+          description?: string | null
+          id?: string
+          organizer_id: string
+          slug: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          access_code?: string | null
+          cover_photo_url?: string | null
+          created_at?: string
+          date?: string | null
+          description?: string | null
+          id?: string
+          organizer_id?: string
+          slug?: string
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      photos: {
+        Row: {
+          category: string | null
+          event_id: string
+          id: string
+          status: string
+          storage_url: string
+          thumbnail_url: string | null
+          uploaded_at: string
+          uploader_id: string | null
+        }
+        Insert: {
+          category?: string | null
+          event_id: string
+          id?: string
+          status?: string
+          storage_url: string
+          thumbnail_url?: string | null
+          uploaded_at?: string
+          uploader_id?: string | null
+        }
+        Update: {
+          category?: string | null
+          event_id?: string
+          id?: string
+          status?: string
+          storage_url?: string
+          thumbnail_url?: string | null
+          uploaded_at?: string
+          uploader_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "photos_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          event_frequency: string | null
+          id: string
+          name: string | null
+          onboarding_completed: boolean
+          referral_source: string | null
+          updated_at: string
+          use_case: string | null
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          event_frequency?: string | null
+          id?: string
+          name?: string | null
+          onboarding_completed?: boolean
+          referral_source?: string | null
+          updated_at?: string
+          use_case?: string | null
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          event_frequency?: string | null
+          id?: string
+          name?: string | null
+          onboarding_completed?: boolean
+          referral_source?: string | null
+          updated_at?: string
+          use_case?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      reactions: {
+        Row: {
+          created_at: string
+          emoji: string
+          id: string
+          photo_id: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          emoji: string
+          id?: string
+          photo_id: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          emoji?: string
+          id?: string
+          photo_id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reactions_photo_id_fkey"
+            columns: ["photo_id"]
+            isOneToOne: false
+            referencedRelation: "photos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "organizer" | "guest"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +330,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["organizer", "guest"],
+    },
   },
 } as const
