@@ -176,11 +176,11 @@ const Index = () => {
                 }}
               >
                 {/* Cover photo — 65% */}
-                <div className="w-full overflow-hidden" style={{ height: "65%" }}>
+                <div className="w-full" style={{ height: "65%" }}>
                   <img
                     src={album.cover}
                     alt={album.title}
-                    className="w-full h-full object-cover brightness-[0.75] contrast-[1.05] transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover brightness-[0.75] contrast-[1.05]"
                   />
                 </div>
 
