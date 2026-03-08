@@ -17,12 +17,20 @@ import startupThumb1 from "@/assets/startup-thumb1.jpg";
 import startupThumb2 from "@/assets/startup-thumb2.png";
 import startupThumb3 from "@/assets/startup-thumb3.jpg";
 
+import bdayCover from "@/assets/bday-cover.jpg";
+
 const albums = [
   {
     title: "Yosemite Trip",
     meta: "Jan 2025  ·  4 photos",
     cover: yosemiteCover,
     thumbs: [yosemiteThumb1, yosemiteThumb2, yosemiteThumb3],
+  },
+  {
+    title: "23rd Birthday Party",
+    meta: "Mar 2025  ·  4 photos",
+    cover: bdayCover,
+    thumbs: [nightThumb1, nightThumb3, nightThumb2],
   },
   {
     title: "Night & Nature",
