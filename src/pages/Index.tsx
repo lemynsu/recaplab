@@ -275,10 +275,9 @@ const Index = () => {
               <Link
                 key={s.label}
                 to="/create"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-border bg-card text-[12px] font-sans font-normal text-foreground hover:bg-accent hover:border-muted-foreground/30 transition-all duration-200"
+                className="inline-flex items-center px-4 py-2 rounded-full border border-border bg-card text-[12px] font-sans font-normal text-foreground hover:bg-accent hover:border-muted-foreground/30 transition-all duration-200"
               >
-                <span>{s.emoji}</span>
-                <span>{s.label}</span>
+                {s.label}
               </Link>
             ))}
           </div>
@@ -293,12 +292,12 @@ const Index = () => {
               value={accessCode}
               onChange={(e) => setAccessCode(e.target.value)}
               placeholder="Enter access code"
-              className="flex-1 h-10 px-3.5 rounded-lg border border-border bg-card text-[13px] font-sans text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-ring/30 transition-all duration-200"
+              className="flex-1 h-10 px-4 rounded-full border border-border bg-card text-[13px] font-sans text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-ring/30 transition-all duration-200"
             />
             <button
               type="submit"
               disabled={joining || !accessCode.trim()}
-              className="h-10 px-5 rounded-lg bg-primary text-primary-foreground text-[12px] font-sans font-medium tracking-wide uppercase hover:opacity-90 disabled:opacity-40 transition-all duration-200"
+              className="h-10 px-5 rounded-full bg-primary text-primary-foreground text-[12px] font-sans font-medium tracking-wide uppercase hover:opacity-90 disabled:opacity-40 transition-all duration-200"
             >
               {joining ? "..." : "Join →"}
             </button>
