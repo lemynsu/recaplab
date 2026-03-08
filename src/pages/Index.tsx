@@ -1,29 +1,43 @@
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
-import album1 from "@/assets/album-1.jpg";
-import album2 from "@/assets/album-2.jpg";
-import album3 from "@/assets/album-3.jpg";
-import album4 from "@/assets/album-4.jpg";
-import album5 from "@/assets/album-5.jpg";
-import album6 from "@/assets/album-6.jpg";
+import yosemiteCover from "@/assets/yosemite-cover.jpg";
+import yosemiteThumb1 from "@/assets/yosemite-thumb1.jpg";
+import yosemiteThumb2 from "@/assets/yosemite-thumb2.jpg";
+import yosemiteThumb3 from "@/assets/yosemite-thumb3.jpg";
 
-const albums = [album1, album2, album3, album4, album5, album6];
+import hikeCover from "@/assets/hike-cover.jpg";
+import hikeThumb1 from "@/assets/hike-thumb1.jpg";
+import hikeThumb3 from "@/assets/hike-thumb3.jpg";
+
+import nightThumb1 from "@/assets/night-thumb1.jpg";
+import nightThumb2 from "@/assets/night-thumb2.jpg";
+import nightThumb3 from "@/assets/night-thumb3.jpg";
+
+const albums = [
+  {
+    title: "Yosemite Trip",
+    meta: "Jan 2025  ·  4 photos",
+    cover: yosemiteCover,
+    thumbs: [yosemiteThumb1, yosemiteThumb2, yosemiteThumb3],
+  },
+  {
+    title: "Winter Hike",
+    meta: "Jan 2025  ·  4 photos",
+    cover: hikeCover,
+    thumbs: [hikeThumb1, yosemiteThumb1, hikeThumb3],
+  },
+  {
+    title: "Night & Nature",
+    meta: "Jan 2025  ·  4 photos",
+    cover: nightThumb2,
+    thumbs: [nightThumb1, nightThumb2, nightThumb3],
+  },
+];
+
+const ease = [0.16, 1, 0.3, 1] as const;
 
 const Index = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const scale = useTransform(scrollYProgress, [0, 0.55], [6, 1]);
-  const surroundingOpacity = useTransform(scrollYProgress, [0.05, 0.35], [0, 1]);
-  const gridRotateX = useTransform(scrollYProgress, [0, 0.55], [6, 0]);
-  const headlineOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
-  const headlineY = useTransform(scrollYProgress, [0, 0.12], [0, -30]);
-
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
@@ -44,18 +58,15 @@ const Index = () => {
         </div>
       </nav>
 
-      {/* Single section — full scroll experience */}
-      <div ref={containerRef} className="relative h-[300vh]">
-        <div className="sticky top-0 h-screen overflow-hidden flex items-center justify-center">
-          {/* Headline + CTA */}
-          <motion.div
-            style={{ opacity: headlineOpacity, y: headlineY }}
-            className="absolute z-20 text-center pointer-events-auto px-6 flex flex-col items-center"
-          >
+      {/* Hero */}
+      <section className="relative h-screen overflow-hidden">
+        {/* Top area — text */}
+        <div className="h-[55vh] flex items-center px-6 md:px-[8vw] pt-16">
+          <div>
             <motion.h1
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.7, ease }}
               className="font-display font-light text-[42px] sm:text-[54px] md:text-[76px] leading-[1.05] tracking-[-0.02em] text-foreground"
             >
               Every event deserves
@@ -63,9 +74,9 @@ const Index = () => {
               a better album.
             </motion.h1>
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.55 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease, delay: 0.12 }}
               className="mt-7"
             >
               <Link
@@ -75,29 +86,96 @@ const Index = () => {
                 Create your album &rarr;
               </Link>
             </motion.div>
+          </div>
+        </div>
+
+        {/* Bottom area — film strip */}
+        <div className="h-[45vh] relative">
+          {/* Label */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease, delay: 0.4 }}
+            className="flex items-center justify-between px-6 md:px-[8vw] mb-4"
+          >
+            <span className="text-[11px] font-sans font-medium uppercase tracking-[0.15em] text-muted-foreground">
+              Recent Albums
+            </span>
+            <span className="text-[11px] font-sans font-light text-muted-foreground hidden sm:block pr-0 md:pr-[8vw]">
+              scroll to explore →
+            </span>
           </motion.div>
 
-          {/* Tiny photo grid */}
-          <motion.div
-            style={{
-              scale,
-              rotateX: gridRotateX,
-              transformPerspective: 1200,
-            }}
-            className="grid grid-cols-3 gap-1 w-[56vw] max-w-xs"
+          {/* Strip container */}
+          <div
+            className="flex flex-row gap-4 pl-6 md:pl-[8vw] pr-0 items-start overflow-x-auto md:overflow-x-visible scrollbar-hide"
+            style={{ WebkitOverflowScrolling: "touch", scrollbarWidth: "none" }}
           >
-            {albums.map((src, i) => (
+            {albums.map((album, i) => (
               <motion.div
-                key={i}
-                style={{ opacity: i === 1 ? 1 : surroundingOpacity }}
-                className="aspect-[3/4] overflow-hidden rounded-[1px] grayscale"
+                key={album.title}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  duration: 0.7,
+                  ease,
+                  delay: 0.5 + i * 0.14,
+                }}
+                className="flex-shrink-0 w-[220px] sm:w-[240px] md:w-[280px] rounded-[3px] overflow-hidden"
+                style={{
+                  height: "calc(38vh)",
+                  background: "#FDFCF9",
+                  border: "1px solid hsl(var(--border))",
+                  boxShadow: "2px 6px 24px rgba(0,0,0,0.09)",
+                }}
               >
-                <img src={src} alt="" className="w-full h-full object-cover" />
+                {/* Cover photo — 65% */}
+                <div className="w-full" style={{ height: "65%" }}>
+                  <img
+                    src={album.cover}
+                    alt={album.title}
+                    className="w-full h-full object-cover grayscale"
+                  />
+                </div>
+
+                {/* Photo strip — 15% */}
+                <div className="w-full flex" style={{ height: "15%", gap: "2px" }}>
+                  {album.thumbs.map((thumb, j) => (
+                    <img
+                      key={j}
+                      src={thumb}
+                      alt=""
+                      className="h-full object-cover grayscale"
+                      style={{ width: "calc(33.333% - 1.33px)" }}
+                    />
+                  ))}
+                </div>
+
+                {/* Album info — 20% */}
+                <div
+                  className="flex flex-col justify-center"
+                  style={{ height: "20%", padding: "10px 12px" }}
+                >
+                  <span className="text-[12px] font-sans font-medium text-foreground leading-tight">
+                    {album.title}
+                  </span>
+                  <span className="text-[11px] font-sans font-light text-muted-foreground mt-1">
+                    {album.meta}
+                  </span>
+                </div>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
+
+          {/* Right edge fade */}
+          <div
+            className="absolute right-0 top-0 bottom-0 w-[120px] pointer-events-none"
+            style={{
+              background: "linear-gradient(to right, transparent, hsl(var(--background)) 85%)",
+            }}
+          />
         </div>
-      </div>
+      </section>
     </div>
   );
 };
