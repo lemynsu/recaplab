@@ -26,24 +26,25 @@ interface PhotoData {
   group: number;
   idx: number;
   scatter: { top: number; left: number; rot: number };
+  mobileScatter: { top: number; left: number; rot: number };
   lineLeft: number;
 }
 
 /* ─── data ─────────────────────────────────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 55, left: 5, rot: -3 }, lineLeft: 2 },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 12, left: 55, rot: 2 }, lineLeft: 10 },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 8, left: 72, rot: -1.5 }, lineLeft: 18 },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 15, left: 88, rot: 3.5 }, lineLeft: 26 },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 60, left: 88, rot: -2 }, lineLeft: 34 },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 65, left: 25, rot: 1 }, lineLeft: 42 },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 38, left: 62, rot: -4 }, lineLeft: 50 },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 40, left: 82, rot: 2.5 }, lineLeft: 58 },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 50, left: 45, rot: -1 }, lineLeft: 66 },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 72, left: 15, rot: 3 }, lineLeft: 74 },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 75, left: 55, rot: -2.5 }, lineLeft: 82 },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 70, left: 75, rot: 1.5 }, lineLeft: 90 },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 55, left: 5, rot: -3 }, mobileScatter: { top: 45, left: 5, rot: -3 }, lineLeft: 2 },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 12, left: 55, rot: 2 }, mobileScatter: { top: 42, left: 55, rot: 2 }, lineLeft: 10 },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 8, left: 72, rot: -1.5 }, mobileScatter: { top: 50, left: 72, rot: -1.5 }, lineLeft: 18 },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 15, left: 88, rot: 3.5 }, mobileScatter: { top: 48, left: 85, rot: 3.5 }, lineLeft: 26 },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 60, left: 88, rot: -2 }, mobileScatter: { top: 65, left: 80, rot: -2 }, lineLeft: 34 },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 65, left: 25, rot: 1 }, mobileScatter: { top: 68, left: 25, rot: 1 }, lineLeft: 42 },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 38, left: 62, rot: -4 }, mobileScatter: { top: 55, left: 60, rot: -4 }, lineLeft: 50 },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 40, left: 82, rot: 2.5 }, mobileScatter: { top: 58, left: 78, rot: 2.5 }, lineLeft: 58 },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 50, left: 45, rot: -1 }, mobileScatter: { top: 55, left: 45, rot: -1 }, lineLeft: 66 },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 72, left: 15, rot: 3 }, mobileScatter: { top: 75, left: 15, rot: 3 }, lineLeft: 74 },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 75, left: 55, rot: -2.5 }, mobileScatter: { top: 78, left: 55, rot: -2.5 }, lineLeft: 82 },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 70, left: 75, rot: 1.5 }, mobileScatter: { top: 73, left: 72, rot: 1.5 }, lineLeft: 90 },
 ];
 
 const groups = [
@@ -74,15 +75,16 @@ const PHASE_ORDER: Phase[] = ["scatter", "line", "albums"];
 function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
   const g = groups[photo.group];
   const d = deck[photo.idx];
-  const albumW = isMobile ? 140 : 180;
+  const albumW = isMobile ? 100 : 180;
+  const scatter = isMobile ? photo.mobileScatter : photo.scatter;
 
   switch (phase) {
     case "scatter":
       return {
-        left: `${photo.scatter.left}%`,
-        top: `${photo.scatter.top}%`,
-        rotate: photo.scatter.rot,
-        width: isMobile ? 64 : 88,
+        left: `${scatter.left}%`,
+        top: `${scatter.top}%`,
+        rotate: scatter.rot,
+        width: isMobile ? 52 : 88,
         x: 0,
         y: 0,
         opacity: 1,
@@ -91,9 +93,9 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
     case "line":
       return {
         left: `${photo.lineLeft}%`,
-        top: "50%",
+        top: isMobile ? "60%" : "50%",
         rotate: 0,
-        width: isMobile ? 64 : 86,
+        width: isMobile ? 52 : 86,
         x: 0,
         y: -55,
         opacity: 1,
@@ -102,13 +104,13 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
     case "albums":
       return {
         left: `${g.left}%`,
-        top: "50%",
+        top: isMobile ? "60%" : "50%",
         rotate: d.rot,
         width: albumW,
-        x: d.x,
-        y: d.y,
+        x: d.x * (isMobile ? 0.6 : 1),
+        y: d.y * (isMobile ? 0.7 : 1),
         opacity: d.opacity,
-        paddingBottom: 18,
+        paddingBottom: isMobile ? 12 : 18,
       };
   }
 }
