@@ -288,7 +288,7 @@ export default function HeroAnimatedDemo() {
       </div>
 
       {/* ── animation stage (full viewport) ── */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden" style={{ transform: 'translateY(-80px)' }}>
         {/* ── photos ── */}
         {displayedPhotos.map((p, i) => (
           <AnimatedPhoto
