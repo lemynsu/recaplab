@@ -272,7 +272,7 @@ function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
             transition={{ duration: 0.6, delay: 0.5 }}
             style={{
               left: "50%",
-              top: "32%",
+              top: "42%",
               transform: `translateX(${groupX}px)`,
               width: cardW,
             }}
