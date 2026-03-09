@@ -16,6 +16,10 @@ import nightThumb1 from "@/assets/night-thumb1.jpg";
 import nightThumb2 from "@/assets/night-thumb2.jpg";
 import nightThumb3 from "@/assets/night-thumb3.jpg";
 import bdayThumb1 from "@/assets/bday-thumb1.jpg";
+import startupCover from "@/assets/startup-cover.jpg";
+import startupThumb1 from "@/assets/startup-thumb1.jpg";
+import startupThumb2 from "@/assets/startup-thumb2.png";
+import startupThumb3 from "@/assets/startup-thumb3.jpg";
 
 /* ─── types ─────────────────────────────────────────── */
 
