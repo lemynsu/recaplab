@@ -367,19 +367,15 @@ export default function HeroAnimatedDemo() {
 
         <AlbumLabels phase={phase} isMobile={isMobile} />
 
-        {/* ── CTA (albums phase) ── */}
-        <motion.div
-          animate={{ opacity: phase === "albums" ? 1 : 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="absolute bottom-[28px] sm:bottom-[60px] left-1/2 -translate-x-1/2 z-20"
-        >
+        {/* ── CTA (always visible) ── */}
+        <div className="absolute bottom-[16px] sm:bottom-[32px] left-1/2 -translate-x-1/2 z-20">
           <Link
             to="/dashboard"
             className="text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
           >
             Browse your albums →
           </Link>
-        </motion.div>
+        </div>
 
         <PhaseIndicator phase={phase} />
       </div>
