@@ -330,9 +330,14 @@ export default function HeroAnimatedDemo() {
       <motion.div
         animate={{ opacity: showHeroText ? 1 : 0.6 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="absolute top-[60px] sm:top-[80px] left-0 right-0 flex justify-center z-30 pointer-events-none"
+        className="absolute top-[100px] sm:top-[130px] left-0 right-0 flex justify-center z-30 pointer-events-none"
       >
-        <div className="text-center">
+        <div
+          className="text-center px-6 py-8 rounded-2xl"
+          style={{
+            background: "radial-gradient(ellipse at center, hsl(var(--background)) 0%, hsl(var(--background) / 0.92) 40%, hsl(var(--background) / 0.7) 70%, transparent 100%)",
+          }}
+        >
           <h1 className="font-display font-light text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] tracking-[-0.02em] text-foreground">
             Every event deserves
             <br />
