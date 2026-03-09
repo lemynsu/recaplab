@@ -72,8 +72,9 @@ const PHASE_ORDER: Phase[] = ["scatter", "circle", "gather", "albums"];
 
 /* ─── circle math ─────────────────────────────────── */
 
-function getCirclePosition(index: number, total: number, radius: number) {
-  const angle = (index / total) * Math.PI * 2 - Math.PI / 2; // start from top
+function getCirclePosition(index: number, total: number, radius: number, counterClockwise: boolean = false) {
+  const direction = counterClockwise ? -1 : 1;
+  const angle = direction * (index / total) * Math.PI * 2 - Math.PI / 2; // start from top
   const x = Math.cos(angle) * radius;
   const y = Math.sin(angle) * radius;
   // slight rotation tangent to the circle
@@ -94,7 +95,8 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
   const d = deck[photo.idx];
   const albumW = isMobile ? MOBILE_ALBUM_WIDTH : 180;
   const scatter = isMobile ? photo.mobileScatter : photo.scatter;
-  const circleRadius = isMobile ? 140 : 280;
+  const circleRadius = isMobile ? 160 : 320;
+  const gatherRadius = isMobile ? 120 : 240;
 
   switch (phase) {
     case "scatter":
@@ -109,7 +111,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
         paddingBottom: 3,
       };
     case "circle": {
-      const pos = getCirclePosition(index, total, circleRadius);
+      const pos = getCirclePosition(index, total, circleRadius, false);
       return {
         left: "50%",
         top: "50%",
@@ -121,17 +123,19 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
         paddingBottom: 3,
       };
     }
-    case "gather":
+    case "gather": {
+      const pos = getCirclePosition(index, total, gatherRadius, true);
       return {
         left: "50%",
         top: "50%",
-        rotate: 0,
+        rotate: pos.rot,
         width: isMobile ? MOBILE_PHOTO_WIDTH : DESKTOP_PHOTO_WIDTH,
-        x: -(isMobile ? MOBILE_PHOTO_WIDTH / 2 : DESKTOP_PHOTO_WIDTH / 2),
-        y: -55,
+        x: pos.x - (isMobile ? MOBILE_PHOTO_WIDTH / 2 : DESKTOP_PHOTO_WIDTH / 2),
+        y: pos.y - 55,
         opacity: 1,
         paddingBottom: 3,
       };
+    }
     case "albums":
       return {
         left: `${g.left}%`,
