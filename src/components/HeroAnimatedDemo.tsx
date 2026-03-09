@@ -140,7 +140,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
       const w = pw * lp.scale;
       return {
         left: `${lp.leftPct}%`,
-        top: "50%",
+        top: "38%",
         rotate: lp.rot,
         width: w,
         x: -w / 2,
