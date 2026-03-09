@@ -215,16 +215,17 @@ function AnimatedPhoto({
 /* ─── phase indicator dots ─────────────────────────── */
 
 function PhaseIndicator({ phase }: { phase: Phase }) {
+  const visiblePhases = PHASE_ORDER.filter(p => p !== "gather");
   return (
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
-      {PHASE_ORDER.map((p) => (
+      {visiblePhases.map((p) => (
         <motion.div
           key={p}
           className="rounded-full"
           animate={{
-            width: phase === p ? 20 : 6,
+            width: phase === p || (phase === "gather" && p === "albums") ? 20 : 6,
             height: 6,
-            backgroundColor: phase === p
+            backgroundColor: phase === p || (phase === "gather" && p === "albums")
               ? "hsl(var(--foreground))"
               : "hsl(var(--muted-foreground) / 0.3)",
           }}
