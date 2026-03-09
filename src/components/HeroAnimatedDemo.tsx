@@ -281,7 +281,7 @@ function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
             <div
               className="text-left"
               style={{
-                marginTop: isMobile ? 290 : 420,
+                marginTop: isMobile ? 130 : 230,
               }}
             >
               <p className="text-[11px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
