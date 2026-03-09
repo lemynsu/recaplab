@@ -33,24 +33,24 @@ interface PhotoData {
 /* ─── data ─────────────────────────────────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 55, left: 5, rot: -3 }, mobileScatter: { top: 14, left: 8, rot: -3 }, lineLeft: 2 },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 12, left: 55, rot: 2 }, mobileScatter: { top: 6, left: 55, rot: 2 }, lineLeft: 10 },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 8, left: 72, rot: -1.5 }, mobileScatter: { top: 10, left: 73, rot: -1.5 }, lineLeft: 18 },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 15, left: 88, rot: 3.5 }, mobileScatter: { top: 14, left: 86, rot: 3.5 }, lineLeft: 26 },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 60, left: 88, rot: -2 }, mobileScatter: { top: 28, left: 80, rot: -2 }, lineLeft: 34 },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 65, left: 25, rot: 1 }, mobileScatter: { top: 34, left: 24, rot: 1 }, lineLeft: 42 },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 38, left: 62, rot: -4 }, mobileScatter: { top: 40, left: 58, rot: -4 }, lineLeft: 50 },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 40, left: 82, rot: 2.5 }, mobileScatter: { top: 44, left: 78, rot: 2.5 }, lineLeft: 58 },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 50, left: 45, rot: -1 }, mobileScatter: { top: 50, left: 45, rot: -1 }, lineLeft: 66 },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 72, left: 15, rot: 3 }, mobileScatter: { top: 60, left: 15, rot: 3 }, lineLeft: 74 },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 75, left: 55, rot: -2.5 }, mobileScatter: { top: 64, left: 55, rot: -2.5 }, lineLeft: 82 },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 70, left: 75, rot: 1.5 }, mobileScatter: { top: 62, left: 72, rot: 1.5 }, lineLeft: 90 },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 20, left: 50, rot: -3 }, mobileScatter: { top: 8, left: 5, rot: -3 }, lineLeft: 2 },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 10, left: 65, rot: 2 }, mobileScatter: { top: 4, left: 30, rot: 2 }, lineLeft: 10 },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 55, left: 58, rot: -1.5 }, mobileScatter: { top: 12, left: 55, rot: -1.5 }, lineLeft: 18 },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 65, left: 48, rot: 3.5 }, mobileScatter: { top: 16, left: 78, rot: 3.5 }, lineLeft: 26 },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 15, left: 82, rot: -2 }, mobileScatter: { top: 30, left: 10, rot: -2 }, lineLeft: 34 },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 60, left: 78, rot: 1 }, mobileScatter: { top: 34, left: 40, rot: 1 }, lineLeft: 42 },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 35, left: 70, rot: -4 }, mobileScatter: { top: 28, left: 65, rot: -4 }, lineLeft: 50 },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 45, left: 90, rot: 2.5 }, mobileScatter: { top: 38, left: 82, rot: 2.5 }, lineLeft: 58 },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 30, left: 55, rot: -1 }, mobileScatter: { top: 50, left: 15, rot: -1 }, lineLeft: 66 },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 70, left: 65, rot: 3 }, mobileScatter: { top: 48, left: 45, rot: 3 }, lineLeft: 74 },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 75, left: 85, rot: -2.5 }, mobileScatter: { top: 54, left: 70, rot: -2.5 }, lineLeft: 82 },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 48, left: 75, rot: 1.5 }, mobileScatter: { top: 44, left: 88, rot: 1.5 }, lineLeft: 90 },
 ];
 
 const groups = [
-  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 18 },
-  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 50 },
-  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 82 },
+  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 30 },
+  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 58 },
+  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 85 },
 ];
 
 const deck = [
@@ -72,7 +72,7 @@ const PHASE_ORDER: Phase[] = ["scatter", "line", "albums"];
 
 /* ─── helpers to compute target styles per phase ──── */
 
-const MOBILE_ANIMATION_TOP = "32%";
+const MOBILE_ANIMATION_TOP = "0%";
 const MOBILE_ALBUM_WIDTH = 82;
 const MOBILE_PHOTO_WIDTH = 46;
 
@@ -98,7 +98,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
     case "line":
       return {
         left: `${photo.lineLeft}%`,
-        top: isMobile ? "38%" : "50%",
+        top: isMobile ? "50%" : "50%",
         rotate: 0,
         width: isMobile ? MOBILE_PHOTO_WIDTH : 86,
         x: 0,
@@ -109,7 +109,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
     case "albums":
       return {
         left: `${g.left}%`,
-        top: isMobile ? "42%" : "50%",
+        top: isMobile ? "50%" : "50%",
         rotate: d.rot,
         width: albumW,
         x: d.x * (isMobile ? 0.45 : 1),
@@ -232,8 +232,8 @@ export default function HeroAnimatedDemo() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
-      {/* ── hero text — top left, always visible ── */}
-      <div className="absolute top-[80px] sm:top-[72px] left-[8vw] z-30 pointer-events-none">
+      {/* ── hero text — left aligned, vertically centered ── */}
+      <div className="absolute top-1/2 -translate-y-1/2 left-[8vw] z-30 pointer-events-none">
         <h1 className="font-display font-light text-[38px] sm:text-[54px] md:text-[72px] leading-[1.08] tracking-[-0.02em] text-foreground">
           Every event deserves
           <br />
@@ -276,7 +276,7 @@ export default function HeroAnimatedDemo() {
             className="absolute top-1/2 -translate-x-1/2 z-10 pointer-events-none"
           >
             <div
-              style={{ transform: `translateY(${isMobile ? 88 : 120}px)` }}
+              style={{ transform: `translateY(${isMobile ? 16 : 24}px)` }}
               className="text-center"
             >
               <p className="text-[12px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
