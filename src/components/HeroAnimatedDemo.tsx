@@ -123,17 +123,19 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
         paddingBottom: 3,
       };
     }
-    case "gather":
+    case "gather": {
+      const pos = getCirclePosition(index, total, gatherRadius, true);
       return {
         left: "50%",
         top: "50%",
-        rotate: 0,
+        rotate: pos.rot,
         width: isMobile ? MOBILE_PHOTO_WIDTH : DESKTOP_PHOTO_WIDTH,
-        x: -(isMobile ? MOBILE_PHOTO_WIDTH / 2 : DESKTOP_PHOTO_WIDTH / 2),
-        y: -55,
+        x: pos.x - (isMobile ? MOBILE_PHOTO_WIDTH / 2 : DESKTOP_PHOTO_WIDTH / 2),
+        y: pos.y - 55,
         opacity: 1,
         paddingBottom: 3,
       };
+    }
     case "albums":
       return {
         left: `${g.left}%`,
