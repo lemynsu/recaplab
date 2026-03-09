@@ -347,7 +347,7 @@ export default function HeroAnimatedDemo() {
             to="/create"
             className="inline-block mt-5 text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200 pointer-events-auto"
           >
-            Create your shared album →
+            Create my shared album →
           </Link>
         </div>
       </motion.div>
@@ -368,7 +368,7 @@ export default function HeroAnimatedDemo() {
         <AlbumLabels phase={phase} isMobile={isMobile} />
 
         {/* ── CTA (always visible) ── */}
-        <div className="absolute bottom-[16px] sm:bottom-[32px] left-1/2 -translate-x-1/2 z-20">
+        <div className="absolute bottom-[28%] left-1/2 -translate-x-1/2 z-20">
           <Link
             to="/dashboard"
             className="text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
