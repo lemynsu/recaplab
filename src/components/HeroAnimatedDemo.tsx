@@ -284,17 +284,17 @@ function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
                 marginTop: isMobile ? 130 : 230,
               }}
             >
-              <p className="text-[11px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
+              <p className="text-[9px] sm:text-[10px] font-sans font-medium uppercase tracking-[0.12em] text-foreground">
                 {g.label}
               </p>
-              <p className="text-[9px] sm:text-[11px] font-sans font-light text-muted-foreground mt-0.5">
+              <p className="text-[8px] sm:text-[9px] font-sans font-light text-muted-foreground mt-0.5">
                 {g.meta}
               </p>
-              <div className="flex items-center gap-1.5 mt-1">
-                <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
-                  <User size={10} className="text-muted-foreground" />
+              <div className="flex items-center gap-1 mt-0.5">
+                <div className="w-3 h-3 rounded-full bg-muted flex items-center justify-center">
+                  <User size={7} className="text-muted-foreground" />
                 </div>
-                <span className="text-[9px] sm:text-[10px] font-sans font-light text-muted-foreground">
+                <span className="text-[7px] sm:text-[8px] font-sans font-light text-muted-foreground">
                   {g.creator}
                 </span>
               </div>
@@ -367,19 +367,15 @@ export default function HeroAnimatedDemo() {
 
         <AlbumLabels phase={phase} isMobile={isMobile} />
 
-        {/* ── CTA (albums phase) ── */}
-        <motion.div
-          animate={{ opacity: phase === "albums" ? 1 : 0 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          className="absolute bottom-[28px] sm:bottom-[60px] left-1/2 -translate-x-1/2 z-20"
-        >
+        {/* ── CTA (always visible) ── */}
+        <div className="absolute bottom-[16px] sm:bottom-[32px] left-1/2 -translate-x-1/2 z-20">
           <Link
             to="/dashboard"
             className="text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
           >
             Browse your albums →
           </Link>
-        </motion.div>
+        </div>
 
         <PhaseIndicator phase={phase} />
       </div>
