@@ -16,6 +16,10 @@ import nightThumb1 from "@/assets/night-thumb1.jpg";
 import nightThumb2 from "@/assets/night-thumb2.jpg";
 import nightThumb3 from "@/assets/night-thumb3.jpg";
 import bdayThumb1 from "@/assets/bday-thumb1.jpg";
+import startupCover from "@/assets/startup-cover.jpg";
+import startupThumb1 from "@/assets/startup-thumb1.jpg";
+import startupThumb2 from "@/assets/startup-thumb2.png";
+import startupThumb3 from "@/assets/startup-thumb3.jpg";
 
 /* ─── types ─────────────────────────────────────────── */
 
@@ -32,24 +36,29 @@ interface PhotoData {
 /* ─── data ─────────────────────────────────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 15, left: 18, rot: -3 }, mobileScatter: { top: 12, left: 15, rot: -3 } },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 58, left: 22, rot: 2 }, mobileScatter: { top: 62, left: 18, rot: 2 } },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 18, left: 38, rot: -1.5 }, mobileScatter: { top: 15, left: 35, rot: -1.5 } },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 62, left: 35, rot: 3.5 }, mobileScatter: { top: 65, left: 32, rot: 3.5 } },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 15, left: 52, rot: -2 }, mobileScatter: { top: 12, left: 50, rot: -2 } },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 60, left: 48, rot: 1 }, mobileScatter: { top: 64, left: 46, rot: 1 } },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 18, left: 65, rot: -4 }, mobileScatter: { top: 15, left: 62, rot: -4 } },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 62, left: 62, rot: 2.5 }, mobileScatter: { top: 66, left: 60, rot: 2.5 } },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 15, left: 78, rot: -1 }, mobileScatter: { top: 12, left: 75, rot: -1 } },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 58, left: 75, rot: 3 }, mobileScatter: { top: 62, left: 72, rot: 3 } },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 35, left: 12, rot: -2.5 }, mobileScatter: { top: 35, left: 10, rot: -2.5 } },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 35, left: 82, rot: 1.5 }, mobileScatter: { top: 35, left: 78, rot: 1.5 } },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 15, left: 12, rot: -3 }, mobileScatter: { top: 12, left: 8, rot: -3 } },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 58, left: 15, rot: 2 }, mobileScatter: { top: 62, left: 10, rot: 2 } },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 18, left: 28, rot: -1.5 }, mobileScatter: { top: 15, left: 25, rot: -1.5 } },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 62, left: 25, rot: 3.5 }, mobileScatter: { top: 65, left: 22, rot: 3.5 } },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 15, left: 40, rot: -2 }, mobileScatter: { top: 12, left: 38, rot: -2 } },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 60, left: 37, rot: 1 }, mobileScatter: { top: 64, left: 35, rot: 1 } },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 18, left: 52, rot: -4 }, mobileScatter: { top: 15, left: 50, rot: -4 } },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 62, left: 50, rot: 2.5 }, mobileScatter: { top: 66, left: 48, rot: 2.5 } },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 15, left: 65, rot: -1 }, mobileScatter: { top: 12, left: 63, rot: -1 } },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 58, left: 62, rot: 3 }, mobileScatter: { top: 62, left: 60, rot: 3 } },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 35, left: 8, rot: -2.5 }, mobileScatter: { top: 35, left: 5, rot: -2.5 } },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 35, left: 75, rot: 1.5 }, mobileScatter: { top: 35, left: 70, rot: 1.5 } },
+  { src: startupCover, group: 3, idx: 0, scatter: { top: 15, left: 82, rot: -2 }, mobileScatter: { top: 12, left: 78, rot: -2 } },
+  { src: startupThumb1, group: 3, idx: 1, scatter: { top: 58, left: 85, rot: 1.5 }, mobileScatter: { top: 62, left: 82, rot: 1.5 } },
+  { src: startupThumb2, group: 3, idx: 2, scatter: { top: 35, left: 88, rot: -1 }, mobileScatter: { top: 35, left: 85, rot: -1 } },
+  { src: startupThumb3, group: 3, idx: 3, scatter: { top: 62, left: 78, rot: 2 }, mobileScatter: { top: 66, left: 75, rot: 2 } },
 ];
 
 const groups = [
-  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 20 },
-  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 50 },
-  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 80 },
+  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 15 },
+  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 38 },
+  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 62 },
+  { label: "STARTUP EVENT", meta: "4 photos · Jan 2025", creator: "Taylor R.", left: 85 },
 ];
 
 const deck = [
@@ -262,7 +271,7 @@ export default function HeroAnimatedDemo() {
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
       {/* ── hero text — centered, always visible, inside circle ── */}
-      <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none" style={{ transform: 'translateY(-80px)' }}>
         <div className="text-center">
           <h1 className="font-display font-light text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] tracking-[-0.02em] text-foreground">
             Every event deserves
@@ -279,7 +288,7 @@ export default function HeroAnimatedDemo() {
       </div>
 
       {/* ── animation stage (full viewport) ── */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden" style={{ transform: 'translateY(-80px)' }}>
         {/* ── photos ── */}
         {displayedPhotos.map((p, i) => (
           <AnimatedPhoto
@@ -302,7 +311,7 @@ export default function HeroAnimatedDemo() {
             className="absolute top-1/2 -translate-x-1/2 z-10 pointer-events-none"
           >
             <div
-              style={{ transform: `translateY(${isMobile ? 62 : 140}px)` }}
+              style={{ transform: `translateY(${isMobile ? 80 : 160}px)` }}
               className="text-center"
             >
               <p className="text-[11px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
