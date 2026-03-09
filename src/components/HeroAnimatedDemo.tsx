@@ -16,49 +16,39 @@ import nightThumb1 from "@/assets/night-thumb1.jpg";
 import nightThumb2 from "@/assets/night-thumb2.jpg";
 import nightThumb3 from "@/assets/night-thumb3.jpg";
 import bdayThumb1 from "@/assets/bday-thumb1.jpg";
-import startupCover from "@/assets/startup-cover.jpg";
-import startupThumb1 from "@/assets/startup-thumb1.jpg";
-import startupThumb2 from "@/assets/startup-thumb2.png";
-import startupThumb3 from "@/assets/startup-thumb3.jpg";
 
 /* ─── types ─────────────────────────────────────────── */
 
-type Phase = "scatter" | "circle" | "gather" | "albums";
+type Phase = "scatter" | "spiral" | "gather" | "albums";
 
 interface PhotoData {
   src: string;
   group: number;
   idx: number;
   scatter: { top: number; left: number; rot: number };
-  mobileScatter: { top: number; left: number; rot: number };
 }
 
-/* ─── data ─────────────────────────────────────────── */
+/* ─── data (3 albums × 4 photos = 12) ──────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 15, left: 12, rot: -3 }, mobileScatter: { top: 12, left: 8, rot: -3 } },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 58, left: 15, rot: 2 }, mobileScatter: { top: 62, left: 10, rot: 2 } },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 18, left: 28, rot: -1.5 }, mobileScatter: { top: 15, left: 25, rot: -1.5 } },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 62, left: 25, rot: 3.5 }, mobileScatter: { top: 65, left: 22, rot: 3.5 } },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 15, left: 40, rot: -2 }, mobileScatter: { top: 12, left: 38, rot: -2 } },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 60, left: 37, rot: 1 }, mobileScatter: { top: 64, left: 35, rot: 1 } },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 18, left: 52, rot: -4 }, mobileScatter: { top: 15, left: 50, rot: -4 } },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 62, left: 50, rot: 2.5 }, mobileScatter: { top: 66, left: 48, rot: 2.5 } },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 15, left: 65, rot: -1 }, mobileScatter: { top: 12, left: 63, rot: -1 } },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 58, left: 62, rot: 3 }, mobileScatter: { top: 62, left: 60, rot: 3 } },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 35, left: 8, rot: -2.5 }, mobileScatter: { top: 35, left: 5, rot: -2.5 } },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 35, left: 75, rot: 1.5 }, mobileScatter: { top: 35, left: 70, rot: 1.5 } },
-  { src: startupCover, group: 3, idx: 0, scatter: { top: 15, left: 82, rot: -2 }, mobileScatter: { top: 12, left: 78, rot: -2 } },
-  { src: startupThumb1, group: 3, idx: 1, scatter: { top: 58, left: 85, rot: 1.5 }, mobileScatter: { top: 62, left: 82, rot: 1.5 } },
-  { src: startupThumb2, group: 3, idx: 2, scatter: { top: 35, left: 88, rot: -1 }, mobileScatter: { top: 35, left: 85, rot: -1 } },
-  { src: startupThumb3, group: 3, idx: 3, scatter: { top: 62, left: 78, rot: 2 }, mobileScatter: { top: 66, left: 75, rot: 2 } },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 15, left: 10, rot: -3 } },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 60, left: 8, rot: 2 } },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 18, left: 25, rot: -1.5 } },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 64, left: 22, rot: 3.5 } },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 12, left: 42, rot: -2 } },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 62, left: 38, rot: 1 } },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 16, left: 58, rot: -4 } },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 65, left: 55, rot: 2.5 } },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 14, left: 72, rot: -1 } },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 60, left: 70, rot: 3 } },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 35, left: 85, rot: -2.5 } },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 62, left: 88, rot: 1.5 } },
 ];
 
 const groups = [
-  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 15 },
-  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 38 },
-  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 62 },
-  { label: "STARTUP EVENT", meta: "4 photos · Jan 2025", creator: "Taylor R.", left: 85 },
+  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 20 },
+  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 50 },
+  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 80 },
 ];
 
 const deck = [
@@ -72,74 +62,76 @@ const deck = [
 
 const PHASE_DURATIONS: Record<Phase, number> = {
   scatter: 2500,
-  circle: 2500,
+  spiral: 3000,
   gather: 1200,
   albums: 3500,
 };
 
-const PHASE_ORDER: Phase[] = ["scatter", "circle", "gather", "albums"];
+const PHASE_ORDER: Phase[] = ["scatter", "spiral", "gather", "albums"];
 
-/* ─── circle math ─────────────────────────────────── */
+/* ─── spiral math (counterclockwise, expanding) ────── */
 
-function getCirclePosition(index: number, total: number, radius: number, counterClockwise: boolean = false) {
-  const direction = counterClockwise ? -1 : 1;
-  const angle = direction * (index / total) * Math.PI * 2 - Math.PI / 2; // start from top
+function getSpiralPosition(index: number, total: number, maxRadius: number) {
+  const progress = index / total;
+  // counterclockwise: negative direction, 2 full rotations
+  const angle = -progress * Math.PI * 4 - Math.PI / 2;
+  const radius = 30 + progress * maxRadius;
   const x = Math.cos(angle) * radius;
   const y = Math.sin(angle) * radius;
-  // slight rotation tangent to the circle
-  const rot = (angle * 180) / Math.PI + 90;
-  const clampedRot = ((rot % 360) + 360) % 360;
-  const finalRot = clampedRot > 180 ? clampedRot - 360 : clampedRot;
-  return { x, y, rot: finalRot * 0.15 }; // subtle rotation
+  const rot = ((angle * 180) / Math.PI) * 0.08;
+  return { x, y, rot };
 }
 
-/* ─── helpers to compute target styles per phase ──── */
+/* ─── responsive sizes ─────────────────────────────── */
 
-const MOBILE_ALBUM_WIDTH = 82;
-const MOBILE_PHOTO_WIDTH = 30;
-const DESKTOP_PHOTO_WIDTH = 56;
+const PHOTO_W_MOBILE = 32;
+const PHOTO_W_DESKTOP = 56;
+const ALBUM_W_MOBILE = 90;
+const ALBUM_W_DESKTOP = 180;
+
+/* ─── helpers to compute target styles per phase ──── */
 
 function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index: number, total: number) {
   const g = groups[photo.group];
   const d = deck[photo.idx];
-  const albumW = isMobile ? MOBILE_ALBUM_WIDTH : 180;
-  const scatter = isMobile ? photo.mobileScatter : photo.scatter;
-  const circleRadius = isMobile ? 160 : 320;
-  const gatherRadius = isMobile ? 120 : 240;
+  const pw = isMobile ? PHOTO_W_MOBILE : PHOTO_W_DESKTOP;
+  const aw = isMobile ? ALBUM_W_MOBILE : ALBUM_W_DESKTOP;
+  const spiralR = isMobile ? 120 : 280;
+  const gatherR = isMobile ? 60 : 140;
 
   switch (phase) {
     case "scatter":
       return {
-        left: `${scatter.left}%`,
-        top: `${scatter.top}%`,
-        rotate: scatter.rot,
-        width: isMobile ? MOBILE_PHOTO_WIDTH : DESKTOP_PHOTO_WIDTH,
+        left: `${photo.scatter.left}%`,
+        top: `${photo.scatter.top}%`,
+        rotate: photo.scatter.rot,
+        width: pw,
         x: 0,
         y: 0,
         opacity: 1,
         paddingBottom: 3,
       };
-    case "circle": {
-      const pos = getCirclePosition(index, total, circleRadius, false);
+    case "spiral": {
+      const pos = getSpiralPosition(index, total, spiralR);
       return {
         left: "50%",
         top: "50%",
         rotate: pos.rot,
-        width: isMobile ? MOBILE_PHOTO_WIDTH : DESKTOP_PHOTO_WIDTH,
-        x: pos.x - (isMobile ? MOBILE_PHOTO_WIDTH / 2 : DESKTOP_PHOTO_WIDTH / 2),
+        width: pw,
+        x: pos.x - pw / 2,
         y: pos.y - 55,
         opacity: 1,
         paddingBottom: 3,
       };
     }
     case "gather": {
-      const pos = getCirclePosition(index, total, gatherRadius, true);
+      const pos = getSpiralPosition(index, total, gatherR);
       return {
         left: "50%",
         top: "50%",
-        rotate: pos.rot,
-        width: isMobile ? MOBILE_PHOTO_WIDTH : DESKTOP_PHOTO_WIDTH,
-        x: pos.x - (isMobile ? MOBILE_PHOTO_WIDTH / 2 : DESKTOP_PHOTO_WIDTH / 2),
+        rotate: pos.rot * 0.5,
+        width: pw,
+        x: pos.x - pw / 2,
         y: pos.y - 55,
         opacity: 1,
         paddingBottom: 3,
@@ -150,8 +142,8 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
         left: `${g.left}%`,
         top: "50%",
         rotate: d.rot,
-        width: albumW,
-        x: d.x * (isMobile ? 0.45 : 1),
+        width: aw,
+        x: d.x * (isMobile ? 0.5 : 1),
         y: d.y * (isMobile ? 0.5 : 1),
         opacity: d.opacity,
         paddingBottom: isMobile ? 10 : 18,
@@ -162,21 +154,13 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
 /* ─── photo component ──────────────────────────────── */
 
 function AnimatedPhoto({
-  photo,
-  index,
-  total,
-  phase,
-  isMobile,
+  photo, index, total, phase, isMobile,
 }: {
-  photo: PhotoData;
-  index: number;
-  total: number;
-  phase: Phase;
-  isMobile: boolean;
+  photo: PhotoData; index: number; total: number; phase: Phase; isMobile: boolean;
 }) {
   const style = getPhotoStyle(photo, phase, isMobile, index, total);
   const d = deck[photo.idx];
-  const stagger = (index / total) * 0.12;
+  const stagger = (index / total) * 0.15;
 
   return (
     <motion.div
@@ -228,7 +212,7 @@ function AnimatedPhoto({
 /* ─── phase indicator dots ─────────────────────────── */
 
 function PhaseIndicator({ phase }: { phase: Phase }) {
-  const visiblePhases = PHASE_ORDER.filter(p => p !== "gather");
+  const visiblePhases: Phase[] = ["scatter", "spiral", "albums"];
   return (
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
       {visiblePhases.map((p) => (
@@ -256,9 +240,6 @@ export default function HeroAnimatedDemo() {
   const [phaseIndex, setPhaseIndex] = useState(0);
   const phase = PHASE_ORDER[phaseIndex];
 
-  const displayedGroups = isMobile ? groups.slice(0, 2) : groups;
-  const displayedPhotos = isMobile ? photos.filter((p) => p.group < 2) : photos;
-
   const advancePhase = useCallback(() => {
     setPhaseIndex((prev) => (prev + 1) % PHASE_ORDER.length);
   }, []);
@@ -270,7 +251,7 @@ export default function HeroAnimatedDemo() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
-      {/* ── hero text — centered, always visible, inside circle ── */}
+      {/* ── hero text ── */}
       <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none" style={{ transform: 'translateY(-80px)' }}>
         <div className="text-center">
           <h1 className="font-display font-light text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] tracking-[-0.02em] text-foreground">
@@ -287,40 +268,42 @@ export default function HeroAnimatedDemo() {
         </div>
       </div>
 
-      {/* ── animation stage (full viewport) ── */}
+      {/* ── animation stage ── */}
       <div className="absolute inset-0 overflow-hidden" style={{ transform: 'translateY(-80px)' }}>
-        {/* ── photos ── */}
-        {displayedPhotos.map((p, i) => (
+        {photos.map((p, i) => (
           <AnimatedPhoto
             key={i}
             photo={p}
             index={i}
-            total={displayedPhotos.length}
+            total={photos.length}
             phase={phase}
             isMobile={isMobile}
           />
         ))}
 
-        {/* ── album labels (albums phase) ── */}
-        {displayedGroups.map((g) => (
+        {/* ── album labels (left-aligned below each album) ── */}
+        {groups.map((g) => (
           <motion.div
             key={g.label}
             animate={{ opacity: phase === "albums" ? 1 : 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             style={{ left: `${g.left}%` }}
-            className="absolute top-1/2 -translate-x-1/2 z-10 pointer-events-none"
+            className="absolute top-1/2 z-10 pointer-events-none"
           >
             <div
-              style={{ transform: `translateY(${isMobile ? 80 : 160}px)` }}
-              className="text-center"
+              style={{
+                transform: `translate(${isMobile ? -ALBUM_W_MOBILE / 2 : -ALBUM_W_DESKTOP / 2}px, ${isMobile ? 50 : 100}px)`,
+                width: isMobile ? ALBUM_W_MOBILE : ALBUM_W_DESKTOP,
+              }}
+              className="text-left"
             >
               <p className="text-[11px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
                 {g.label}
               </p>
-              <p className="text-[9px] sm:text-[11px] font-sans font-light text-muted-foreground mt-1">
+              <p className="text-[9px] sm:text-[11px] font-sans font-light text-muted-foreground mt-0.5">
                 {g.meta}
               </p>
-              <div className="flex items-center justify-center gap-1.5 mt-1.5">
+              <div className="flex items-center gap-1.5 mt-1">
                 <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
                   <User size={10} className="text-muted-foreground" />
                 </div>
@@ -346,7 +329,6 @@ export default function HeroAnimatedDemo() {
           </Link>
         </motion.div>
 
-        {/* ── phase indicator ── */}
         <PhaseIndicator phase={phase} />
       </div>
     </div>
