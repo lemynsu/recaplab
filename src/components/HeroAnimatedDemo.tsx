@@ -95,7 +95,8 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
   const d = deck[photo.idx];
   const albumW = isMobile ? MOBILE_ALBUM_WIDTH : 180;
   const scatter = isMobile ? photo.mobileScatter : photo.scatter;
-  const circleRadius = isMobile ? 140 : 280;
+  const circleRadius = isMobile ? 160 : 320;
+  const gatherRadius = isMobile ? 120 : 240;
 
   switch (phase) {
     case "scatter":
