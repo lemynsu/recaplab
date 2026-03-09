@@ -322,7 +322,7 @@ export default function HeroAnimatedDemo() {
     return () => clearTimeout(timeout);
   }, [phase, advancePhase]);
 
-  const showHeroText = phase === "spread";
+  const showHeroText = true;
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
