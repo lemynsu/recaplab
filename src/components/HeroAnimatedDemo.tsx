@@ -79,8 +79,8 @@ function getLinePosition(index: number, total: number, isMobile: boolean) {
 
 function getAlbumPosition(photo: PhotoData, isMobile: boolean) {
   const groupCount = 3;
-  const cardW = isMobile ? 90 : 160;
-  const gap = isMobile ? 12 : 24;
+  const cardW = isMobile ? 65 : 160;
+  const gap = isMobile ? 8 : 24;
   const totalW = groupCount * cardW + (groupCount - 1) * gap;
 
   // Center the group of cards
@@ -256,8 +256,8 @@ function PhaseIndicator({ phase }: { phase: Phase }) {
 /* ─── album labels ─────────────────────────────────── */
 
 function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
-  const cardW = isMobile ? 90 : 160;
-  const gap = isMobile ? 12 : 24;
+  const cardW = isMobile ? 65 : 160;
+  const gap = isMobile ? 8 : 24;
   const totalW = 3 * cardW + 2 * gap;
   const startX = -totalW / 2;
 
@@ -322,15 +322,15 @@ export default function HeroAnimatedDemo() {
     return () => clearTimeout(timeout);
   }, [phase, advancePhase]);
 
-  const showHeroText = phase === "spread";
+  const showHeroText = true;
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
       {/* ── hero text — visible during spread phase ── */}
       <motion.div
-        animate={{ opacity: showHeroText ? 1 : 0, scale: showHeroText ? 1 : 0.95 }}
+        animate={{ opacity: showHeroText ? 1 : 0.6 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
+        className="absolute top-[60px] sm:top-[80px] left-0 right-0 flex justify-center z-30 pointer-events-none"
       >
         <div className="text-center">
           <h1 className="font-display font-light text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] tracking-[-0.02em] text-foreground">
