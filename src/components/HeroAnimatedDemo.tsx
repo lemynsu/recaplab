@@ -64,15 +64,13 @@ const PHASE_ORDER: Phase[] = ["spread", "line", "albums"];
 
 /* ─── layout math ──────────────────────────────────── */
 
-function getLinePosition(index: number, total: number, isMobile: boolean) {
-  const spread = isMobile ? 92 : 85;
-  const offset = (100 - spread) / 2;
-  const leftPct = offset + (index / (total - 1)) * spread;
-  const centerDist = Math.abs(index - (total - 1) / 2) / ((total - 1) / 2);
-  const direction = index < total / 2 ? -1 : 1;
-  const rot = direction * centerDist * centerDist * 45;
-  const scale = 1 - centerDist * 0.35;
-  return { leftPct, rot, scale };
+function getCirclePosition(index: number, total: number, isMobile: boolean) {
+  const radius = isMobile ? 28 : 22; // percentage of viewport
+  const angle = (index / total) * Math.PI * 2 - Math.PI / 2; // start from top
+  const leftPct = 50 + radius * Math.cos(angle);
+  const topPct = 55 + radius * Math.sin(angle) * 0.7; // squish vertically
+  const rot = (angle * 180) / Math.PI * 0.15; // subtle rotation following the arc
+  return { leftPct, topPct, rot };
 }
 
 /* ─── albums: side-by-side large cards with slight fan ── */
