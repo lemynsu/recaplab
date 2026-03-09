@@ -98,7 +98,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
     case "line":
       return {
         left: `${photo.lineLeft}%`,
-        top: isMobile ? "38%" : "50%",
+        top: isMobile ? "50%" : "50%",
         rotate: 0,
         width: isMobile ? MOBILE_PHOTO_WIDTH : 86,
         x: 0,
