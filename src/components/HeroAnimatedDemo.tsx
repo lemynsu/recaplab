@@ -79,8 +79,8 @@ function getLinePosition(index: number, total: number, isMobile: boolean) {
 
 function getAlbumPosition(photo: PhotoData, isMobile: boolean) {
   const groupCount = 3;
-  const cardW = isMobile ? 220 : 320;
-  const gap = isMobile ? 16 : 28;
+  const cardW = isMobile ? 90 : 160;
+  const gap = isMobile ? 12 : 24;
   const totalW = groupCount * cardW + (groupCount - 1) * gap;
 
   // Center the group of cards
@@ -256,8 +256,8 @@ function PhaseIndicator({ phase }: { phase: Phase }) {
 /* ─── album labels ─────────────────────────────────── */
 
 function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
-  const cardW = isMobile ? 220 : 320;
-  const gap = isMobile ? 16 : 28;
+  const cardW = isMobile ? 90 : 160;
+  const gap = isMobile ? 12 : 24;
   const totalW = 3 * cardW + 2 * gap;
   const startX = -totalW / 2;
 
@@ -281,7 +281,7 @@ function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
             <div
               className="text-left"
               style={{
-                marginTop: isMobile ? 290 : 420,
+                marginTop: isMobile ? 130 : 230,
               }}
             >
               <p className="text-[11px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
