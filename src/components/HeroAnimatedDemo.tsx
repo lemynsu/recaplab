@@ -94,7 +94,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
   const d = deck[photo.idx];
   const albumW = isMobile ? MOBILE_ALBUM_WIDTH : 180;
   const scatter = isMobile ? photo.mobileScatter : photo.scatter;
-  const circleRadius = isMobile ? 100 : 200;
+  const circleRadius = isMobile ? 140 : 280;
 
   switch (phase) {
     case "scatter":
@@ -121,6 +121,17 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
         paddingBottom: 3,
       };
     }
+    case "gather":
+      return {
+        left: "50%",
+        top: "50%",
+        rotate: 0,
+        width: isMobile ? MOBILE_PHOTO_WIDTH : DESKTOP_PHOTO_WIDTH,
+        x: -(isMobile ? MOBILE_PHOTO_WIDTH / 2 : DESKTOP_PHOTO_WIDTH / 2),
+        y: -55,
+        opacity: 1,
+        paddingBottom: 3,
+      };
     case "albums":
       return {
         left: `${g.left}%`,
