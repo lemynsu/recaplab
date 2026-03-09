@@ -256,8 +256,8 @@ function PhaseIndicator({ phase }: { phase: Phase }) {
 /* ─── album labels ─────────────────────────────────── */
 
 function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
-  const cardW = isMobile ? 220 : 320;
-  const gap = isMobile ? 16 : 28;
+  const cardW = isMobile ? 90 : 160;
+  const gap = isMobile ? 12 : 24;
   const totalW = 3 * cardW + 2 * gap;
   const startX = -totalW / 2;
 
