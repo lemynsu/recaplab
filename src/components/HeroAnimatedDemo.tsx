@@ -367,15 +367,6 @@ export default function HeroAnimatedDemo() {
 
         <AlbumLabels phase={phase} isMobile={isMobile} />
 
-        {/* ── CTA (always visible) ── */}
-        <div className="absolute bottom-[8%] left-1/2 -translate-x-1/2 z-20">
-          <Link
-            to="/dashboard"
-            className="text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
-          >
-            Browse your albums →
-          </Link>
-        </div>
 
         <PhaseIndicator phase={phase} />
       </div>
