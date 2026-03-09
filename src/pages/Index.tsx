@@ -89,10 +89,10 @@ const Index = () => {
             </Link>
             <span className="text-border">|</span>
             <Link
-              to="/auth"
+              to={user ? "/dashboard" : "/auth?redirect=/dashboard"}
               className="px-3 py-1 hover:text-foreground transition-colors duration-200"
             >
-              Sign in
+              My albums
             </Link>
           </div>
         </div>

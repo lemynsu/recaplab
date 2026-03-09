@@ -33,17 +33,17 @@ interface PhotoData {
 
 const photos: PhotoData[] = [
   { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 12, left: 8, rot: -5 } },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 18, left: 25, rot: 3 } },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 8, left: 55, rot: -2 } },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 22, left: 72, rot: 4 } },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 38, left: 5, rot: -3 } },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 42, left: 38, rot: 2 } },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 35, left: 62, rot: -4 } },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 45, left: 88, rot: 1.5 } },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 62, left: 12, rot: 3.5 } },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 58, left: 45, rot: -1.5 } },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 68, left: 70, rot: 2.5 } },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 72, left: 90, rot: -3 } },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 16, left: 25, rot: 3 } },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 10, left: 55, rot: -2 } },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 20, left: 72, rot: 4 } },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 30, left: 5, rot: -3 } },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 34, left: 38, rot: 2 } },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 28, left: 62, rot: -4 } },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 36, left: 88, rot: 1.5 } },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 46, left: 12, rot: 3.5 } },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 42, left: 45, rot: -1.5 } },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 50, left: 70, rot: 2.5 } },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 52, left: 90, rot: -3 } },
 ];
 
 const groups = [
@@ -325,7 +325,7 @@ export default function HeroAnimatedDemo() {
   const showHeroText = true;
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-background">
+    <div className="relative h-[75vh] w-full overflow-hidden bg-background">
       {/* ── hero text — visible during spread phase ── */}
       <motion.div
         animate={{ opacity: showHeroText ? 1 : 0.6 }}
