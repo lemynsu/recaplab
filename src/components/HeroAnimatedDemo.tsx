@@ -109,7 +109,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
     case "albums":
       return {
         left: `${g.left}%`,
-        top: isMobile ? "42%" : "50%",
+        top: isMobile ? "50%" : "50%",
         rotate: d.rot,
         width: albumW,
         x: d.x * (isMobile ? 0.45 : 1),
