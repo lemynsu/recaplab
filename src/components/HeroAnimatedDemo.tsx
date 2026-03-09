@@ -32,18 +32,18 @@ interface PhotoData {
 /* ─── data (12 photos → 3 albums × 4) ─────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 12, left: 8, rot: -5 } },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 16, left: 25, rot: 3 } },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 10, left: 55, rot: -2 } },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 20, left: 72, rot: 4 } },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 30, left: 5, rot: -3 } },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 34, left: 38, rot: 2 } },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 28, left: 62, rot: -4 } },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 36, left: 88, rot: 1.5 } },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 46, left: 12, rot: 3.5 } },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 42, left: 45, rot: -1.5 } },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 50, left: 70, rot: 2.5 } },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 52, left: 90, rot: -3 } },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 8, left: 3, rot: -6 } },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 14, left: 28, rot: 4 } },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 6, left: 58, rot: -3 } },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 12, left: 82, rot: 5 } },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 35, left: 2, rot: -4 } },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 40, left: 35, rot: 3 } },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 32, left: 65, rot: -5 } },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 38, left: 90, rot: 2 } },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 60, left: 6, rot: 4 } },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 65, left: 40, rot: -2 } },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 58, left: 72, rot: 3.5 } },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 68, left: 92, rot: -4 } },
 ];
 
 const groups = [
