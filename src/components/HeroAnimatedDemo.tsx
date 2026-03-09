@@ -19,7 +19,7 @@ import bdayThumb1 from "@/assets/bday-thumb1.jpg";
 
 /* ─── types ─────────────────────────────────────────── */
 
-type Phase = "scatter" | "circle" | "albums";
+type Phase = "scatter" | "circle" | "gather" | "albums";
 
 interface PhotoData {
   src: string;
@@ -32,18 +32,18 @@ interface PhotoData {
 /* ─── data ─────────────────────────────────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 8, left: 5, rot: -3 }, mobileScatter: { top: 5, left: 3, rot: -3 } },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 65, left: 8, rot: 2 }, mobileScatter: { top: 70, left: 2, rot: 2 } },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 12, left: 30, rot: -1.5 }, mobileScatter: { top: 8, left: 25, rot: -1.5 } },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 72, left: 25, rot: 3.5 }, mobileScatter: { top: 75, left: 20, rot: 3.5 } },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 5, left: 55, rot: -2 }, mobileScatter: { top: 3, left: 50, rot: -2 } },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 68, left: 50, rot: 1 }, mobileScatter: { top: 72, left: 45, rot: 1 } },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 10, left: 72, rot: -4 }, mobileScatter: { top: 6, left: 68, rot: -4 } },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 70, left: 70, rot: 2.5 }, mobileScatter: { top: 73, left: 65, rot: 2.5 } },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 8, left: 88, rot: -1 }, mobileScatter: { top: 4, left: 82, rot: -1 } },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 62, left: 88, rot: 3 }, mobileScatter: { top: 68, left: 80, rot: 3 } },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 35, left: 2, rot: -2.5 }, mobileScatter: { top: 38, left: 1, rot: -2.5 } },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 38, left: 90, rot: 1.5 }, mobileScatter: { top: 40, left: 85, rot: 1.5 } },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 15, left: 18, rot: -3 }, mobileScatter: { top: 12, left: 15, rot: -3 } },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 58, left: 22, rot: 2 }, mobileScatter: { top: 62, left: 18, rot: 2 } },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 18, left: 38, rot: -1.5 }, mobileScatter: { top: 15, left: 35, rot: -1.5 } },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 62, left: 35, rot: 3.5 }, mobileScatter: { top: 65, left: 32, rot: 3.5 } },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 15, left: 52, rot: -2 }, mobileScatter: { top: 12, left: 50, rot: -2 } },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 60, left: 48, rot: 1 }, mobileScatter: { top: 64, left: 46, rot: 1 } },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 18, left: 65, rot: -4 }, mobileScatter: { top: 15, left: 62, rot: -4 } },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 62, left: 62, rot: 2.5 }, mobileScatter: { top: 66, left: 60, rot: 2.5 } },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 15, left: 78, rot: -1 }, mobileScatter: { top: 12, left: 75, rot: -1 } },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 58, left: 75, rot: 3 }, mobileScatter: { top: 62, left: 72, rot: 3 } },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 35, left: 12, rot: -2.5 }, mobileScatter: { top: 35, left: 10, rot: -2.5 } },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 35, left: 82, rot: 1.5 }, mobileScatter: { top: 35, left: 78, rot: 1.5 } },
 ];
 
 const groups = [
@@ -64,10 +64,11 @@ const deck = [
 const PHASE_DURATIONS: Record<Phase, number> = {
   scatter: 2500,
   circle: 2500,
+  gather: 1200,
   albums: 3500,
 };
 
-const PHASE_ORDER: Phase[] = ["scatter", "circle", "albums"];
+const PHASE_ORDER: Phase[] = ["scatter", "circle", "gather", "albums"];
 
 /* ─── circle math ─────────────────────────────────── */
 
@@ -93,7 +94,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
   const d = deck[photo.idx];
   const albumW = isMobile ? MOBILE_ALBUM_WIDTH : 180;
   const scatter = isMobile ? photo.mobileScatter : photo.scatter;
-  const circleRadius = isMobile ? 100 : 200;
+  const circleRadius = isMobile ? 140 : 280;
 
   switch (phase) {
     case "scatter":
@@ -120,6 +121,17 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
         paddingBottom: 3,
       };
     }
+    case "gather":
+      return {
+        left: "50%",
+        top: "50%",
+        rotate: 0,
+        width: isMobile ? MOBILE_PHOTO_WIDTH : DESKTOP_PHOTO_WIDTH,
+        x: -(isMobile ? MOBILE_PHOTO_WIDTH / 2 : DESKTOP_PHOTO_WIDTH / 2),
+        y: -55,
+        opacity: 1,
+        paddingBottom: 3,
+      };
     case "albums":
       return {
         left: `${g.left}%`,
@@ -203,16 +215,17 @@ function AnimatedPhoto({
 /* ─── phase indicator dots ─────────────────────────── */
 
 function PhaseIndicator({ phase }: { phase: Phase }) {
+  const visiblePhases = PHASE_ORDER.filter(p => p !== "gather");
   return (
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
-      {PHASE_ORDER.map((p) => (
+      {visiblePhases.map((p) => (
         <motion.div
           key={p}
           className="rounded-full"
           animate={{
-            width: phase === p ? 20 : 6,
+            width: phase === p || (phase === "gather" && p === "albums") ? 20 : 6,
             height: 6,
-            backgroundColor: phase === p
+            backgroundColor: phase === p || (phase === "gather" && p === "albums")
               ? "hsl(var(--foreground))"
               : "hsl(var(--muted-foreground) / 0.3)",
           }}
