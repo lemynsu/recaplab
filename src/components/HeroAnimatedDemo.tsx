@@ -232,8 +232,8 @@ export default function HeroAnimatedDemo() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
-      {/* ── hero text — top left, always visible ── */}
-      <div className="absolute top-[80px] sm:top-[72px] left-[8vw] z-30 pointer-events-none">
+      {/* ── hero text — left aligned, vertically centered ── */}
+      <div className="absolute top-1/2 -translate-y-1/2 left-[8vw] z-30 pointer-events-none">
         <h1 className="font-display font-light text-[38px] sm:text-[54px] md:text-[72px] leading-[1.08] tracking-[-0.02em] text-foreground">
           Every event deserves
           <br />
