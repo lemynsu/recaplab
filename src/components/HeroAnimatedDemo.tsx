@@ -72,8 +72,9 @@ const PHASE_ORDER: Phase[] = ["scatter", "circle", "gather", "albums"];
 
 /* ─── circle math ─────────────────────────────────── */
 
-function getCirclePosition(index: number, total: number, radius: number) {
-  const angle = (index / total) * Math.PI * 2 - Math.PI / 2; // start from top
+function getCirclePosition(index: number, total: number, radius: number, counterClockwise: boolean = false) {
+  const direction = counterClockwise ? -1 : 1;
+  const angle = direction * (index / total) * Math.PI * 2 - Math.PI / 2; // start from top
   const x = Math.cos(angle) * radius;
   const y = Math.sin(angle) * radius;
   // slight rotation tangent to the circle
