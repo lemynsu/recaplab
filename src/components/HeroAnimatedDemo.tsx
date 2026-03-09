@@ -140,7 +140,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
       const w = pw * lp.scale;
       return {
         left: `${lp.leftPct}%`,
-        top: "38%",
+        top: "48%",
         rotate: lp.rot,
         width: w,
         x: -w / 2,
@@ -155,7 +155,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
       const ap = getAlbumPosition(photo, isMobile);
       return {
         left: "50%",
-        top: "32%",
+        top: "42%",
         rotate: ap.rot,
         width: ap.width,
         x: ap.x - ap.width / 2,
@@ -272,7 +272,7 @@ function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
             transition={{ duration: 0.6, delay: 0.5 }}
             style={{
               left: "50%",
-              top: "32%",
+              top: "42%",
               transform: `translateX(${groupX}px)`,
               width: cardW,
             }}
@@ -325,7 +325,7 @@ export default function HeroAnimatedDemo() {
   const showHeroText = true;
 
   return (
-    <div className="relative h-[75vh] w-full overflow-hidden bg-background">
+    <div className="relative h-[70vh] w-full overflow-hidden bg-background">
       {/* ── hero text — visible during spread phase ── */}
       <motion.div
         animate={{ opacity: showHeroText ? 1 : 0.6 }}
@@ -368,7 +368,7 @@ export default function HeroAnimatedDemo() {
         <AlbumLabels phase={phase} isMobile={isMobile} />
 
         {/* ── CTA (always visible) ── */}
-        <div className="absolute bottom-[28%] left-1/2 -translate-x-1/2 z-20">
+        <div className="absolute bottom-[8%] left-1/2 -translate-x-1/2 z-20">
           <Link
             to="/dashboard"
             className="text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
