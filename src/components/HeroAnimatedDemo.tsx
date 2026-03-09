@@ -328,9 +328,9 @@ export default function HeroAnimatedDemo() {
     <div className="relative h-screen w-full overflow-hidden bg-background">
       {/* ── hero text — visible during spread phase ── */}
       <motion.div
-        animate={{ opacity: showHeroText ? 1 : 0, scale: showHeroText ? 1 : 0.95 }}
+        animate={{ opacity: showHeroText ? 1 : 0.6 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
-        className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
+        className="absolute top-[60px] sm:top-[80px] left-0 right-0 flex justify-center z-30 pointer-events-none"
       >
         <div className="text-center">
           <h1 className="font-display font-light text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] tracking-[-0.02em] text-foreground">
