@@ -140,7 +140,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
       const w = pw * lp.scale;
       return {
         left: `${lp.leftPct}%`,
-        top: "48%",
+        top: "55%",
         rotate: lp.rot,
         width: w,
         x: -w / 2,
@@ -155,7 +155,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
       const ap = getAlbumPosition(photo, isMobile);
       return {
         left: "50%",
-        top: "42%",
+        top: "50%",
         rotate: ap.rot,
         width: ap.width,
         x: ap.x - ap.width / 2,
@@ -272,7 +272,7 @@ function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
             transition={{ duration: 0.6, delay: 0.5 }}
             style={{
               left: "50%",
-              top: "42%",
+              top: "50%",
               transform: `translateX(${groupX}px)`,
               width: cardW,
             }}
@@ -367,15 +367,6 @@ export default function HeroAnimatedDemo() {
 
         <AlbumLabels phase={phase} isMobile={isMobile} />
 
-        {/* ── CTA (always visible) ── */}
-        <div className="absolute bottom-[8%] left-1/2 -translate-x-1/2 z-20">
-          <Link
-            to="/dashboard"
-            className="text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200"
-          >
-            Browse your albums →
-          </Link>
-        </div>
 
         <PhaseIndicator phase={phase} />
       </div>
