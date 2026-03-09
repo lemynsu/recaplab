@@ -36,18 +36,22 @@ interface PhotoData {
 /* ─── data ─────────────────────────────────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 15, left: 18, rot: -3 }, mobileScatter: { top: 12, left: 15, rot: -3 } },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 58, left: 22, rot: 2 }, mobileScatter: { top: 62, left: 18, rot: 2 } },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 18, left: 38, rot: -1.5 }, mobileScatter: { top: 15, left: 35, rot: -1.5 } },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 62, left: 35, rot: 3.5 }, mobileScatter: { top: 65, left: 32, rot: 3.5 } },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 15, left: 52, rot: -2 }, mobileScatter: { top: 12, left: 50, rot: -2 } },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 60, left: 48, rot: 1 }, mobileScatter: { top: 64, left: 46, rot: 1 } },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 18, left: 65, rot: -4 }, mobileScatter: { top: 15, left: 62, rot: -4 } },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 62, left: 62, rot: 2.5 }, mobileScatter: { top: 66, left: 60, rot: 2.5 } },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 15, left: 78, rot: -1 }, mobileScatter: { top: 12, left: 75, rot: -1 } },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 58, left: 75, rot: 3 }, mobileScatter: { top: 62, left: 72, rot: 3 } },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 35, left: 12, rot: -2.5 }, mobileScatter: { top: 35, left: 10, rot: -2.5 } },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 35, left: 82, rot: 1.5 }, mobileScatter: { top: 35, left: 78, rot: 1.5 } },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 15, left: 12, rot: -3 }, mobileScatter: { top: 12, left: 8, rot: -3 } },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 58, left: 15, rot: 2 }, mobileScatter: { top: 62, left: 10, rot: 2 } },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 18, left: 28, rot: -1.5 }, mobileScatter: { top: 15, left: 25, rot: -1.5 } },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 62, left: 25, rot: 3.5 }, mobileScatter: { top: 65, left: 22, rot: 3.5 } },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 15, left: 40, rot: -2 }, mobileScatter: { top: 12, left: 38, rot: -2 } },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 60, left: 37, rot: 1 }, mobileScatter: { top: 64, left: 35, rot: 1 } },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 18, left: 52, rot: -4 }, mobileScatter: { top: 15, left: 50, rot: -4 } },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 62, left: 50, rot: 2.5 }, mobileScatter: { top: 66, left: 48, rot: 2.5 } },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 15, left: 65, rot: -1 }, mobileScatter: { top: 12, left: 63, rot: -1 } },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 58, left: 62, rot: 3 }, mobileScatter: { top: 62, left: 60, rot: 3 } },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 35, left: 8, rot: -2.5 }, mobileScatter: { top: 35, left: 5, rot: -2.5 } },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 35, left: 75, rot: 1.5 }, mobileScatter: { top: 35, left: 70, rot: 1.5 } },
+  { src: startupCover, group: 3, idx: 0, scatter: { top: 15, left: 82, rot: -2 }, mobileScatter: { top: 12, left: 78, rot: -2 } },
+  { src: startupThumb1, group: 3, idx: 1, scatter: { top: 58, left: 85, rot: 1.5 }, mobileScatter: { top: 62, left: 82, rot: 1.5 } },
+  { src: startupThumb2, group: 3, idx: 2, scatter: { top: 35, left: 88, rot: -1 }, mobileScatter: { top: 35, left: 85, rot: -1 } },
+  { src: startupThumb3, group: 3, idx: 3, scatter: { top: 62, left: 78, rot: 2 }, mobileScatter: { top: 66, left: 75, rot: 2 } },
 ];
 
 const groups = [
