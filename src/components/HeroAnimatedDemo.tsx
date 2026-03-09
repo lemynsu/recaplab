@@ -347,7 +347,7 @@ export default function HeroAnimatedDemo() {
             to="/create"
             className="inline-block mt-5 text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200 pointer-events-auto"
           >
-            Create your shared album →
+            Create my shared album →
           </Link>
         </div>
       </motion.div>
