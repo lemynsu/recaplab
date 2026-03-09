@@ -134,15 +134,14 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
       };
     }
     case "line": {
-      const lp = getLinePosition(index, total, isMobile);
-      const w = pw * lp.scale;
+      const cp = getCirclePosition(index, total, isMobile);
       return {
-        left: `${lp.leftPct}%`,
-        top: "55%",
-        rotate: lp.rot,
-        width: w,
-        x: -w / 2,
-        y: -w * 0.6,
+        left: `${cp.leftPct}%`,
+        top: `${cp.topPct}%`,
+        rotate: cp.rot,
+        width: pw,
+        x: -pw / 2,
+        y: -pw / 2,
         opacity: 1,
         paddingBottom: 3,
         z: total - index,
