@@ -285,7 +285,7 @@ export default function HeroAnimatedDemo() {
             className="absolute top-1/2 -translate-x-1/2 z-10 pointer-events-none"
           >
             <div
-              style={{ transform: `translateY(${isMobile ? 16 : 24}px)` }}
+              style={{ transform: `translateY(${isMobile ? 62 : 140}px)` }}
               className="text-center"
             >
               <p className="text-[11px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
