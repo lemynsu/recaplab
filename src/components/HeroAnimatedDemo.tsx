@@ -85,8 +85,8 @@ function getCirclePosition(index: number, total: number, radius: number) {
 /* ─── helpers to compute target styles per phase ──── */
 
 const MOBILE_ALBUM_WIDTH = 82;
-const MOBILE_PHOTO_WIDTH = 44;
-const DESKTOP_PHOTO_WIDTH = 80;
+const MOBILE_PHOTO_WIDTH = 30;
+const DESKTOP_PHOTO_WIDTH = 56;
 
 function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index: number, total: number) {
   const g = groups[photo.group];
