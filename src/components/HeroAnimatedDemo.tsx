@@ -32,18 +32,18 @@ interface PhotoData {
 /* ─── data (12 photos → 3 albums × 4) ─────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 12, left: 8, rot: -5 } },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 16, left: 25, rot: 3 } },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 10, left: 55, rot: -2 } },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 20, left: 72, rot: 4 } },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 30, left: 5, rot: -3 } },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 34, left: 38, rot: 2 } },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 28, left: 62, rot: -4 } },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 36, left: 88, rot: 1.5 } },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 46, left: 12, rot: 3.5 } },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 42, left: 45, rot: -1.5 } },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 50, left: 70, rot: 2.5 } },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 52, left: 90, rot: -3 } },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 8, left: 3, rot: -6 } },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 14, left: 28, rot: 4 } },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 6, left: 58, rot: -3 } },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 12, left: 82, rot: 5 } },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 35, left: 2, rot: -4 } },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 40, left: 35, rot: 3 } },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 32, left: 65, rot: -5 } },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 38, left: 90, rot: 2 } },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 60, left: 6, rot: 4 } },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 65, left: 40, rot: -2 } },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 58, left: 72, rot: 3.5 } },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 68, left: 92, rot: -4 } },
 ];
 
 const groups = [
@@ -64,15 +64,13 @@ const PHASE_ORDER: Phase[] = ["spread", "line", "albums"];
 
 /* ─── layout math ──────────────────────────────────── */
 
-function getLinePosition(index: number, total: number, isMobile: boolean) {
-  const spread = isMobile ? 92 : 85;
-  const offset = (100 - spread) / 2;
-  const leftPct = offset + (index / (total - 1)) * spread;
-  const centerDist = Math.abs(index - (total - 1) / 2) / ((total - 1) / 2);
-  const direction = index < total / 2 ? -1 : 1;
-  const rot = direction * centerDist * centerDist * 45;
-  const scale = 1 - centerDist * 0.35;
-  return { leftPct, rot, scale };
+function getCirclePosition(index: number, total: number, isMobile: boolean) {
+  const radius = isMobile ? 28 : 22; // percentage of viewport
+  const angle = (index / total) * Math.PI * 2 - Math.PI / 2; // start from top
+  const leftPct = 50 + radius * Math.cos(angle);
+  const topPct = 55 + radius * Math.sin(angle) * 0.7; // squish vertically
+  const rot = (angle * 180) / Math.PI * 0.15; // subtle rotation following the arc
+  return { leftPct, topPct, rot };
 }
 
 /* ─── albums: side-by-side large cards with slight fan ── */
@@ -136,15 +134,14 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
       };
     }
     case "line": {
-      const lp = getLinePosition(index, total, isMobile);
-      const w = pw * lp.scale;
+      const cp = getCirclePosition(index, total, isMobile);
       return {
-        left: `${lp.leftPct}%`,
-        top: "55%",
-        rotate: lp.rot,
-        width: w,
-        x: -w / 2,
-        y: -w * 0.6,
+        left: `${cp.leftPct}%`,
+        top: `${cp.topPct}%`,
+        rotate: cp.rot,
+        width: pw,
+        x: -pw / 2,
+        y: -pw / 2,
         opacity: 1,
         paddingBottom: 3,
         z: total - index,
