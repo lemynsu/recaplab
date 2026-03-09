@@ -85,15 +85,15 @@ function getCirclePosition(index: number, total: number, radius: number) {
 /* ─── helpers to compute target styles per phase ──── */
 
 const MOBILE_ALBUM_WIDTH = 82;
-const MOBILE_PHOTO_WIDTH = 44;
-const DESKTOP_PHOTO_WIDTH = 80;
+const MOBILE_PHOTO_WIDTH = 30;
+const DESKTOP_PHOTO_WIDTH = 56;
 
 function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index: number, total: number) {
   const g = groups[photo.group];
   const d = deck[photo.idx];
   const albumW = isMobile ? MOBILE_ALBUM_WIDTH : 180;
   const scatter = isMobile ? photo.mobileScatter : photo.scatter;
-  const circleRadius = isMobile ? 120 : 260;
+  const circleRadius = isMobile ? 100 : 200;
 
   switch (phase) {
     case "scatter":
