@@ -72,7 +72,7 @@ const PHASE_ORDER: Phase[] = ["scatter", "line", "albums"];
 
 /* ─── helpers to compute target styles per phase ──── */
 
-const MOBILE_ANIMATION_TOP = "32%";
+const MOBILE_ANIMATION_TOP = "0%";
 const MOBILE_ALBUM_WIDTH = 82;
 const MOBILE_PHOTO_WIDTH = 46;
 
