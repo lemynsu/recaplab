@@ -79,8 +79,8 @@ function getLinePosition(index: number, total: number, isMobile: boolean) {
 
 function getAlbumPosition(photo: PhotoData, isMobile: boolean) {
   const groupCount = 3;
-  const cardW = isMobile ? 220 : 320;
-  const gap = isMobile ? 16 : 28;
+  const cardW = isMobile ? 90 : 160;
+  const gap = isMobile ? 12 : 24;
   const totalW = groupCount * cardW + (groupCount - 1) * gap;
 
   // Center the group of cards
