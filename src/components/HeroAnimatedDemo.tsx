@@ -19,7 +19,7 @@ import bdayThumb1 from "@/assets/bday-thumb1.jpg";
 
 /* ─── types ─────────────────────────────────────────── */
 
-type Phase = "scatter" | "circle" | "albums";
+type Phase = "scatter" | "circle" | "gather" | "albums";
 
 interface PhotoData {
   src: string;
