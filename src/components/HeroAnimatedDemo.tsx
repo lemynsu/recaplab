@@ -64,10 +64,11 @@ const deck = [
 const PHASE_DURATIONS: Record<Phase, number> = {
   scatter: 2500,
   circle: 2500,
+  gather: 1200,
   albums: 3500,
 };
 
-const PHASE_ORDER: Phase[] = ["scatter", "circle", "albums"];
+const PHASE_ORDER: Phase[] = ["scatter", "circle", "gather", "albums"];
 
 /* ─── circle math ─────────────────────────────────── */
 
