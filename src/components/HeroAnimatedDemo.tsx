@@ -271,7 +271,7 @@ export default function HeroAnimatedDemo() {
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
       {/* ── hero text — centered, always visible, inside circle ── */}
-      <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none" style={{ transform: 'translateY(-80px)' }}>
         <div className="text-center">
           <h1 className="font-display font-light text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] tracking-[-0.02em] text-foreground">
             Every event deserves
