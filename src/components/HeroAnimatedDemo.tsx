@@ -111,7 +111,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
         paddingBottom: 3,
       };
     case "circle": {
-      const pos = getCirclePosition(index, total, circleRadius);
+      const pos = getCirclePosition(index, total, circleRadius, false);
       return {
         left: "50%",
         top: "50%",
