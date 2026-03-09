@@ -19,155 +19,153 @@ import bdayThumb1 from "@/assets/bday-thumb1.jpg";
 
 /* ─── types ─────────────────────────────────────────── */
 
-type Phase = "line" | "circle" | "gather" | "albums";
+type Phase = "spread" | "line" | "albums";
 
 interface PhotoData {
   src: string;
   group: number;
   idx: number;
+  // scatter position for spread phase
+  scatter: { top: number; left: number; rot: number };
 }
 
 /* ─── data (12 photos → 3 albums × 4) ─────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0 },
-  { src: yosemiteThumb1, group: 0, idx: 1 },
-  { src: yosemiteThumb2, group: 0, idx: 2 },
-  { src: yosemiteThumb3, group: 0, idx: 3 },
-  { src: hikeThumb3, group: 1, idx: 0 },
-  { src: rtfCover, group: 1, idx: 1 },
-  { src: rtfThumb1, group: 1, idx: 2 },
-  { src: rtfThumb2, group: 1, idx: 3 },
-  { src: nightThumb1, group: 2, idx: 0 },
-  { src: nightThumb2, group: 2, idx: 1 },
-  { src: nightThumb3, group: 2, idx: 2 },
-  { src: bdayThumb1, group: 2, idx: 3 },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 12, left: 8, rot: -5 } },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 18, left: 25, rot: 3 } },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 8, left: 55, rot: -2 } },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 22, left: 72, rot: 4 } },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 38, left: 5, rot: -3 } },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 42, left: 38, rot: 2 } },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 35, left: 62, rot: -4 } },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 45, left: 88, rot: 1.5 } },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 62, left: 12, rot: 3.5 } },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 58, left: 45, rot: -1.5 } },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 68, left: 70, rot: 2.5 } },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 72, left: 90, rot: -3 } },
 ];
 
 const groups = [
-  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 20 },
-  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 50 },
-  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 80 },
-];
-
-const deck = [
-  { rot: 0, x: 0, y: -127, opacity: 1, z: 4 },
-  { rot: -6, x: -12, y: -117, opacity: 0.9, z: 3 },
-  { rot: 6, x: 12, y: -112, opacity: 0.75, z: 2 },
-  { rot: -10, x: -20, y: -107, opacity: 0.55, z: 1 },
+  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M." },
+  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L." },
+  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K." },
 ];
 
 /* ─── timing ───────────────────────────────────────── */
 
 const PHASE_DURATIONS: Record<Phase, number> = {
-  line: 2800,
-  circle: 3200,
-  gather: 1400,
-  albums: 3500,
+  spread: 3000,
+  line: 3200,
+  albums: 4000,
 };
 
-const PHASE_ORDER: Phase[] = ["line", "circle", "gather", "albums"];
+const PHASE_ORDER: Phase[] = ["spread", "line", "albums"];
 
 /* ─── layout math ──────────────────────────────────── */
 
 function getLinePosition(index: number, total: number, isMobile: boolean) {
-  // Spread photos evenly across a horizontal line
-  // Edge photos tilt more, center photos are upright
-  const spread = isMobile ? 90 : 85; // percentage width to span
+  const spread = isMobile ? 92 : 85;
   const offset = (100 - spread) / 2;
   const leftPct = offset + (index / (total - 1)) * spread;
-
-  // Distance from center (0 = center, 1 = edge)
   const centerDist = Math.abs(index - (total - 1) / 2) / ((total - 1) / 2);
-
-  // Edge photos tilt and scale down — like a conveyor belt
   const direction = index < total / 2 ? -1 : 1;
-  const rot = direction * centerDist * centerDist * 35; // quadratic tilt
-  const scale = 1 - centerDist * 0.3; // smaller at edges
-
+  const rot = direction * centerDist * centerDist * 45;
+  const scale = 1 - centerDist * 0.35;
   return { leftPct, rot, scale };
 }
 
-function getCirclePosition(index: number, total: number, radius: number) {
-  const angle = (index / total) * Math.PI * 2 - Math.PI / 2;
-  const x = Math.cos(angle) * radius;
-  const y = Math.sin(angle) * radius;
-  // Tangential rotation — photo faces outward
-  const rot = (angle * 180) / Math.PI + 90;
-  const clampedRot = ((rot % 360) + 360) % 360;
-  const finalRot = clampedRot > 180 ? clampedRot - 360 : clampedRot;
-  return { x, y, rot: finalRot * 0.2 };
+/* ─── albums: side-by-side large cards with slight fan ── */
+
+function getAlbumPosition(photo: PhotoData, isMobile: boolean) {
+  const groupCount = 3;
+  const cardW = isMobile ? 220 : 320;
+  const gap = isMobile ? 16 : 28;
+  const totalW = groupCount * cardW + (groupCount - 1) * gap;
+
+  // Center the group of cards
+  const startX = -totalW / 2;
+  const groupX = startX + photo.group * (cardW + gap) + cardW / 2;
+
+  // Stack cards within album with slight rotation & offset
+  const stackOffsets = [
+    { rot: 0, dx: 0, dy: 0, z: 4, opacity: 1 },
+    { rot: -3, dx: -6, dy: 4, z: 3, opacity: 0.92 },
+    { rot: 3, dx: 6, dy: 6, z: 2, opacity: 0.8 },
+    { rot: -5, dx: -10, dy: 10, z: 1, opacity: 0.65 },
+  ];
+
+  const s = stackOffsets[photo.idx];
+  return {
+    x: groupX + s.dx,
+    y: s.dy,
+    rot: s.rot,
+    width: cardW,
+    opacity: s.opacity,
+    z: s.z,
+  };
 }
 
 /* ─── sizes ────────────────────────────────────────── */
 
-const PW_MOBILE = 28;
-const PW_DESKTOP = 52;
-const AW_MOBILE = 90;
-const AW_DESKTOP = 180;
+const PW_MOBILE = 48;
+const PW_DESKTOP = 64;
+const SPREAD_PW_MOBILE = 56;
+const SPREAD_PW_DESKTOP = 72;
 
 /* ─── style per phase ─────────────────────────────── */
 
 function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index: number, total: number) {
-  const g = groups[photo.group];
-  const d = deck[photo.idx];
   const pw = isMobile ? PW_MOBILE : PW_DESKTOP;
-  const aw = isMobile ? AW_MOBILE : AW_DESKTOP;
-  const circleR = isMobile ? 140 : 300;
-  const gatherR = isMobile ? 40 : 70;
+  const spw = isMobile ? SPREAD_PW_MOBILE : SPREAD_PW_DESKTOP;
 
   switch (phase) {
+    case "spread": {
+      const s = photo.scatter;
+      return {
+        left: `${s.left}%`,
+        top: `${s.top}%`,
+        rotate: s.rot,
+        width: spw,
+        x: -spw / 2,
+        y: -spw / 2,
+        opacity: 1,
+        paddingBottom: 3,
+        z: total - index,
+        borderRadius: 4,
+      };
+    }
     case "line": {
       const lp = getLinePosition(index, total, isMobile);
+      const w = pw * lp.scale;
       return {
         left: `${lp.leftPct}%`,
         top: "50%",
         rotate: lp.rot,
-        width: pw * lp.scale,
-        x: -(pw * lp.scale) / 2,
-        y: -40,
+        width: w,
+        x: -w / 2,
+        y: -w * 0.6,
         opacity: 1,
         paddingBottom: 3,
+        z: total - index,
+        borderRadius: 2,
       };
     }
-    case "circle": {
-      const cp = getCirclePosition(index, total, circleR);
+    case "albums": {
+      const ap = getAlbumPosition(photo, isMobile);
       return {
         left: "50%",
-        top: "50%",
-        rotate: cp.rot,
-        width: pw,
-        x: cp.x - pw / 2,
-        y: cp.y - 40,
-        opacity: 1,
-        paddingBottom: 3,
+        top: "42%",
+        rotate: ap.rot,
+        width: ap.width,
+        x: ap.x - ap.width / 2,
+        y: ap.y,
+        opacity: ap.opacity,
+        paddingBottom: isMobile ? 14 : 22,
+        z: ap.z,
+        borderRadius: 6,
       };
     }
-    case "gather": {
-      // Compress toward center with slight spread
-      const cp = getCirclePosition(index, total, gatherR);
-      return {
-        left: "50%",
-        top: "50%",
-        rotate: cp.rot * 2,
-        width: pw * 0.85,
-        x: cp.x - (pw * 0.85) / 2,
-        y: cp.y - 40,
-        opacity: 0.9,
-        paddingBottom: 3,
-      };
-    }
-    case "albums":
-      return {
-        left: `${g.left}%`,
-        top: "46%",
-        rotate: d.rot,
-        width: aw,
-        x: d.x * (isMobile ? 0.5 : 1) - aw / 2,
-        y: d.y * (isMobile ? 0.5 : 1),
-        opacity: d.opacity,
-        paddingBottom: isMobile ? 10 : 18,
-      };
   }
 }
 
@@ -179,8 +177,7 @@ function AnimatedPhoto({
   photo: PhotoData; index: number; total: number; phase: Phase; isMobile: boolean;
 }) {
   const style = getPhotoStyle(photo, phase, isMobile, index, total);
-  const d = deck[photo.idx];
-  const stagger = (index / total) * 0.14;
+  const stagger = (index / total) * 0.15;
 
   return (
     <motion.div
@@ -194,25 +191,28 @@ function AnimatedPhoto({
         opacity: style.opacity,
       }}
       transition={{
-        duration: 1.3,
+        duration: 1.4,
         delay: stagger,
         ease: [0.25, 0.1, 0.25, 1],
       }}
       style={{
         position: "absolute",
-        zIndex: phase === "albums" ? d.z : total - index,
+        zIndex: style.z,
       }}
     >
       <motion.div
-        animate={{ paddingBottom: style.paddingBottom }}
-        transition={{ duration: 1.3, delay: stagger, ease: [0.25, 0.1, 0.25, 1] }}
-        className="pt-[3px] px-[3px] bg-card rounded-sm"
+        animate={{ paddingBottom: style.paddingBottom, borderRadius: style.borderRadius }}
+        transition={{ duration: 1.4, delay: stagger, ease: [0.25, 0.1, 0.25, 1] }}
+        className="pt-[3px] px-[3px] bg-card"
+        style={{ overflow: "hidden" }}
       >
         <div
           style={{
             border: "1px solid hsl(var(--border))",
-            boxShadow: "1px 2px 10px rgba(0,0,0,0.10)",
-            borderRadius: 2,
+            boxShadow: phase === "albums"
+              ? "0 8px 30px rgba(0,0,0,0.12)"
+              : "1px 2px 10px rgba(0,0,0,0.10)",
+            borderRadius: style.borderRadius,
             overflow: "hidden",
           }}
         >
@@ -232,18 +232,17 @@ function AnimatedPhoto({
 /* ─── phase indicator ──────────────────────────────── */
 
 function PhaseIndicator({ phase }: { phase: Phase }) {
-  const visible: Phase[] = ["line", "circle", "albums"];
   return (
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20">
-      {visible.map((p) => (
+      {PHASE_ORDER.map((p) => (
         <motion.div
           key={p}
           className="rounded-full"
           animate={{
-            width: phase === p || (phase === "gather" && p === "albums") ? 20 : 6,
+            width: phase === p ? 20 : 6,
             height: 6,
             backgroundColor:
-              phase === p || (phase === "gather" && p === "albums")
+              phase === p
                 ? "hsl(var(--foreground))"
                 : "hsl(var(--muted-foreground) / 0.3)",
           }}
@@ -251,6 +250,59 @@ function PhaseIndicator({ phase }: { phase: Phase }) {
         />
       ))}
     </div>
+  );
+}
+
+/* ─── album labels ─────────────────────────────────── */
+
+function AlbumLabels({ phase, isMobile }: { phase: Phase; isMobile: boolean }) {
+  const cardW = isMobile ? 220 : 320;
+  const gap = isMobile ? 16 : 28;
+  const totalW = 3 * cardW + 2 * gap;
+  const startX = -totalW / 2;
+
+  return (
+    <>
+      {groups.map((g, gi) => {
+        const groupX = startX + gi * (cardW + gap);
+        return (
+          <motion.div
+            key={g.label}
+            animate={{ opacity: phase === "albums" ? 1 : 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            style={{
+              left: "50%",
+              top: "42%",
+              transform: `translateX(${groupX}px)`,
+              width: cardW,
+            }}
+            className="absolute z-10 pointer-events-none"
+          >
+            <div
+              className="text-left"
+              style={{
+                marginTop: isMobile ? 290 : 420,
+              }}
+            >
+              <p className="text-[11px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
+                {g.label}
+              </p>
+              <p className="text-[9px] sm:text-[11px] font-sans font-light text-muted-foreground mt-0.5">
+                {g.meta}
+              </p>
+              <div className="flex items-center gap-1.5 mt-1">
+                <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
+                  <User size={10} className="text-muted-foreground" />
+                </div>
+                <span className="text-[9px] sm:text-[10px] font-sans font-light text-muted-foreground">
+                  {g.creator}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        );
+      })}
+    </>
   );
 }
 
@@ -270,17 +322,15 @@ export default function HeroAnimatedDemo() {
     return () => clearTimeout(timeout);
   }, [phase, advancePhase]);
 
-  // Hero text visible during circle & gather (when photos form ring around it)
-  const showHeroText = phase === "circle" || phase === "gather";
+  const showHeroText = phase === "spread";
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
-      {/* ── hero text — visible during circle phase ── */}
+      {/* ── hero text — visible during spread phase ── */}
       <motion.div
         animate={{ opacity: showHeroText ? 1 : 0, scale: showHeroText ? 1 : 0.95 }}
         transition={{ duration: 0.7, ease: "easeOut" }}
         className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none"
-        style={{ transform: "translateY(-40px)" }}
       >
         <div className="text-center">
           <h1 className="font-display font-light text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] tracking-[-0.02em] text-foreground">
@@ -298,7 +348,7 @@ export default function HeroAnimatedDemo() {
       </motion.div>
 
       {/* ── animation stage ── */}
-      <div className="absolute inset-0 overflow-hidden" style={{ transform: "translateY(-40px)" }}>
+      <div className="absolute inset-0 overflow-hidden">
         {photos.map((p, i) => (
           <AnimatedPhoto
             key={i}
@@ -310,39 +360,7 @@ export default function HeroAnimatedDemo() {
           />
         ))}
 
-        {/* ── album labels (left-aligned below each stack) ── */}
-        {groups.map((g) => (
-          <motion.div
-            key={g.label}
-            animate={{ opacity: phase === "albums" ? 1 : 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            style={{ left: `${g.left}%` }}
-            className="absolute top-[46%] z-10 pointer-events-none"
-          >
-            <div
-              style={{
-                transform: `translate(${-(isMobile ? AW_MOBILE : AW_DESKTOP) / 2}px, ${isMobile ? 55 : 105}px)`,
-                width: isMobile ? AW_MOBILE : AW_DESKTOP,
-              }}
-              className="text-left"
-            >
-              <p className="text-[11px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
-                {g.label}
-              </p>
-              <p className="text-[9px] sm:text-[11px] font-sans font-light text-muted-foreground mt-0.5">
-                {g.meta}
-              </p>
-              <div className="flex items-center gap-1.5 mt-1">
-                <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
-                  <User size={10} className="text-muted-foreground" />
-                </div>
-                <span className="text-[9px] sm:text-[10px] font-sans font-light text-muted-foreground">
-                  {g.creator}
-                </span>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+        <AlbumLabels phase={phase} isMobile={isMobile} />
 
         {/* ── CTA (albums phase) ── */}
         <motion.div
