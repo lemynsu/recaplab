@@ -325,7 +325,7 @@ export default function HeroAnimatedDemo() {
   const showHeroText = true;
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-background">
+    <div className="relative h-[75vh] w-full overflow-hidden bg-background">
       {/* ── hero text — visible during spread phase ── */}
       <motion.div
         animate={{ opacity: showHeroText ? 1 : 0.6 }}
