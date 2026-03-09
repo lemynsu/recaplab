@@ -155,7 +155,7 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index:
       const ap = getAlbumPosition(photo, isMobile);
       return {
         left: "50%",
-        top: "42%",
+        top: "32%",
         rotate: ap.rot,
         width: ap.width,
         x: ap.x - ap.width / 2,
