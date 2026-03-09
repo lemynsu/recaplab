@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -19,7 +19,7 @@ import bdayThumb1 from "@/assets/bday-thumb1.jpg";
 
 /* ─── types ─────────────────────────────────────────── */
 
-type Phase = "scatter" | "line" | "albums";
+type Phase = "scatter" | "circle" | "albums";
 
 interface PhotoData {
   src: string;
@@ -27,30 +27,29 @@ interface PhotoData {
   idx: number;
   scatter: { top: number; left: number; rot: number };
   mobileScatter: { top: number; left: number; rot: number };
-  lineLeft: number;
 }
 
 /* ─── data ─────────────────────────────────────────── */
 
 const photos: PhotoData[] = [
-  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 20, left: 50, rot: -3 }, mobileScatter: { top: 8, left: 5, rot: -3 }, lineLeft: 2 },
-  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 10, left: 65, rot: 2 }, mobileScatter: { top: 4, left: 30, rot: 2 }, lineLeft: 10 },
-  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 55, left: 58, rot: -1.5 }, mobileScatter: { top: 12, left: 55, rot: -1.5 }, lineLeft: 18 },
-  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 65, left: 48, rot: 3.5 }, mobileScatter: { top: 16, left: 78, rot: 3.5 }, lineLeft: 26 },
-  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 15, left: 82, rot: -2 }, mobileScatter: { top: 30, left: 10, rot: -2 }, lineLeft: 34 },
-  { src: rtfCover, group: 1, idx: 1, scatter: { top: 60, left: 78, rot: 1 }, mobileScatter: { top: 34, left: 40, rot: 1 }, lineLeft: 42 },
-  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 35, left: 70, rot: -4 }, mobileScatter: { top: 28, left: 65, rot: -4 }, lineLeft: 50 },
-  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 45, left: 90, rot: 2.5 }, mobileScatter: { top: 38, left: 82, rot: 2.5 }, lineLeft: 58 },
-  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 30, left: 55, rot: -1 }, mobileScatter: { top: 50, left: 15, rot: -1 }, lineLeft: 66 },
-  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 70, left: 65, rot: 3 }, mobileScatter: { top: 48, left: 45, rot: 3 }, lineLeft: 74 },
-  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 75, left: 85, rot: -2.5 }, mobileScatter: { top: 54, left: 70, rot: -2.5 }, lineLeft: 82 },
-  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 48, left: 75, rot: 1.5 }, mobileScatter: { top: 44, left: 88, rot: 1.5 }, lineLeft: 90 },
+  { src: yosemiteCover, group: 0, idx: 0, scatter: { top: 8, left: 5, rot: -3 }, mobileScatter: { top: 5, left: 3, rot: -3 } },
+  { src: yosemiteThumb1, group: 0, idx: 1, scatter: { top: 65, left: 8, rot: 2 }, mobileScatter: { top: 70, left: 2, rot: 2 } },
+  { src: yosemiteThumb2, group: 0, idx: 2, scatter: { top: 12, left: 30, rot: -1.5 }, mobileScatter: { top: 8, left: 25, rot: -1.5 } },
+  { src: yosemiteThumb3, group: 0, idx: 3, scatter: { top: 72, left: 25, rot: 3.5 }, mobileScatter: { top: 75, left: 20, rot: 3.5 } },
+  { src: hikeThumb3, group: 1, idx: 0, scatter: { top: 5, left: 55, rot: -2 }, mobileScatter: { top: 3, left: 50, rot: -2 } },
+  { src: rtfCover, group: 1, idx: 1, scatter: { top: 68, left: 50, rot: 1 }, mobileScatter: { top: 72, left: 45, rot: 1 } },
+  { src: rtfThumb1, group: 1, idx: 2, scatter: { top: 10, left: 72, rot: -4 }, mobileScatter: { top: 6, left: 68, rot: -4 } },
+  { src: rtfThumb2, group: 1, idx: 3, scatter: { top: 70, left: 70, rot: 2.5 }, mobileScatter: { top: 73, left: 65, rot: 2.5 } },
+  { src: nightThumb1, group: 2, idx: 0, scatter: { top: 8, left: 88, rot: -1 }, mobileScatter: { top: 4, left: 82, rot: -1 } },
+  { src: nightThumb2, group: 2, idx: 1, scatter: { top: 62, left: 88, rot: 3 }, mobileScatter: { top: 68, left: 80, rot: 3 } },
+  { src: nightThumb3, group: 2, idx: 2, scatter: { top: 35, left: 2, rot: -2.5 }, mobileScatter: { top: 38, left: 1, rot: -2.5 } },
+  { src: bdayThumb1, group: 2, idx: 3, scatter: { top: 38, left: 90, rot: 1.5 }, mobileScatter: { top: 40, left: 85, rot: 1.5 } },
 ];
 
 const groups = [
-  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 30 },
-  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 58 },
-  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 85 },
+  { label: "YOSEMITE TRIP", meta: "4 photos · Jan 2025", creator: "Alex M.", left: 20 },
+  { label: "WINTER HIKE", meta: "4 photos · Jan 2025", creator: "Jamie L.", left: 50 },
+  { label: "NIGHT & NATURE", meta: "4 photos · Jan 2025", creator: "Sam K.", left: 80 },
 ];
 
 const deck = [
@@ -64,24 +63,37 @@ const deck = [
 
 const PHASE_DURATIONS: Record<Phase, number> = {
   scatter: 2500,
-  line: 2000,
+  circle: 2500,
   albums: 3500,
 };
 
-const PHASE_ORDER: Phase[] = ["scatter", "line", "albums"];
+const PHASE_ORDER: Phase[] = ["scatter", "circle", "albums"];
+
+/* ─── circle math ─────────────────────────────────── */
+
+function getCirclePosition(index: number, total: number, radius: number) {
+  const angle = (index / total) * Math.PI * 2 - Math.PI / 2; // start from top
+  const x = Math.cos(angle) * radius;
+  const y = Math.sin(angle) * radius;
+  // slight rotation tangent to the circle
+  const rot = (angle * 180) / Math.PI + 90;
+  const clampedRot = ((rot % 360) + 360) % 360;
+  const finalRot = clampedRot > 180 ? clampedRot - 360 : clampedRot;
+  return { x, y, rot: finalRot * 0.15 }; // subtle rotation
+}
 
 /* ─── helpers to compute target styles per phase ──── */
 
-const MOBILE_ANIMATION_TOP = "0%";
 const MOBILE_ALBUM_WIDTH = 82;
-const MOBILE_PHOTO_WIDTH = 46;
+const MOBILE_PHOTO_WIDTH = 44;
+const DESKTOP_PHOTO_WIDTH = 80;
 
-
-function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
+function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean, index: number, total: number) {
   const g = groups[photo.group];
   const d = deck[photo.idx];
   const albumW = isMobile ? MOBILE_ALBUM_WIDTH : 180;
   const scatter = isMobile ? photo.mobileScatter : photo.scatter;
+  const circleRadius = isMobile ? 120 : 260;
 
   switch (phase) {
     case "scatter":
@@ -89,31 +101,33 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
         left: `${scatter.left}%`,
         top: `${scatter.top}%`,
         rotate: scatter.rot,
-        width: isMobile ? MOBILE_PHOTO_WIDTH : 88,
+        width: isMobile ? MOBILE_PHOTO_WIDTH : DESKTOP_PHOTO_WIDTH,
         x: 0,
         y: 0,
         opacity: 1,
         paddingBottom: 3,
       };
-    case "line":
+    case "circle": {
+      const pos = getCirclePosition(index, total, circleRadius);
       return {
-        left: `${photo.lineLeft}%`,
-        top: isMobile ? "50%" : "50%",
-        rotate: 0,
-        width: isMobile ? MOBILE_PHOTO_WIDTH : 86,
-        x: 0,
-        y: isMobile ? -28 : -55,
+        left: "50%",
+        top: "50%",
+        rotate: pos.rot,
+        width: isMobile ? MOBILE_PHOTO_WIDTH : DESKTOP_PHOTO_WIDTH,
+        x: pos.x - (isMobile ? MOBILE_PHOTO_WIDTH / 2 : DESKTOP_PHOTO_WIDTH / 2),
+        y: pos.y - 55,
         opacity: 1,
         paddingBottom: 3,
       };
+    }
     case "albums":
       return {
         left: `${g.left}%`,
-        top: isMobile ? "50%" : "50%",
+        top: "50%",
         rotate: d.rot,
         width: albumW,
         x: d.x * (isMobile ? 0.45 : 1),
-        y: d.y * (isMobile ? 0.45 : 1),
+        y: d.y * (isMobile ? 0.5 : 1),
         opacity: d.opacity,
         paddingBottom: isMobile ? 10 : 18,
       };
@@ -125,21 +139,19 @@ function getPhotoStyle(photo: PhotoData, phase: Phase, isMobile: boolean) {
 function AnimatedPhoto({
   photo,
   index,
+  total,
   phase,
   isMobile,
 }: {
   photo: PhotoData;
   index: number;
+  total: number;
   phase: Phase;
   isMobile: boolean;
 }) {
-  if (isMobile && photo.group === 2) return null;
-
-  const style = getPhotoStyle(photo, phase, isMobile);
+  const style = getPhotoStyle(photo, phase, isMobile, index, total);
   const d = deck[photo.idx];
-
-  // Stagger: center photos move first
-  const stagger = (Math.abs(index - 5.5) / 5.5) * 0.08;
+  const stagger = (index / total) * 0.12;
 
   return (
     <motion.div
@@ -219,7 +231,7 @@ export default function HeroAnimatedDemo() {
   const phase = PHASE_ORDER[phaseIndex];
 
   const displayedGroups = isMobile ? groups.slice(0, 2) : groups;
-  const animationStageStyle = isMobile ? { top: MOBILE_ANIMATION_TOP } : { top: "0%" };
+  const displayedPhotos = isMobile ? photos.filter((p) => p.group < 2) : photos;
 
   const advancePhase = useCallback(() => {
     setPhaseIndex((prev) => (prev + 1) % PHASE_ORDER.length);
@@ -232,39 +244,36 @@ export default function HeroAnimatedDemo() {
 
   return (
     <div className="relative h-screen w-full overflow-hidden bg-background">
-      {/* ── hero text — left aligned, vertically centered ── */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-[8vw] z-30 pointer-events-none">
-        <h1 className="font-display font-light text-[38px] sm:text-[54px] md:text-[72px] leading-[1.08] tracking-[-0.02em] text-foreground">
-          Every event deserves
-          <br />
-          a better album.
-        </h1>
-        <Link
-          to="/create"
-          className="inline-block mt-6 text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200 pointer-events-auto"
-        >
-          Create your shared album →
-        </Link>
+      {/* ── hero text — centered, always visible, inside circle ── */}
+      <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
+        <div className="text-center">
+          <h1 className="font-display font-light text-[32px] sm:text-[48px] md:text-[64px] leading-[1.08] tracking-[-0.02em] text-foreground">
+            Every event deserves
+            <br />
+            a better album.
+          </h1>
+          <Link
+            to="/create"
+            className="inline-block mt-5 text-[13px] font-sans font-normal text-muted-foreground hover:text-foreground transition-colors duration-200 pointer-events-auto"
+          >
+            Create your shared album →
+          </Link>
+        </div>
       </div>
 
-      <div className="absolute left-0 right-0 bottom-0 overflow-hidden" style={animationStageStyle}>
+      {/* ── animation stage (full viewport) ── */}
+      <div className="absolute inset-0 overflow-hidden">
         {/* ── photos ── */}
-        {photos.map((p, i) => (
+        {displayedPhotos.map((p, i) => (
           <AnimatedPhoto
             key={i}
             photo={p}
             index={i}
+            total={displayedPhotos.length}
             phase={phase}
             isMobile={isMobile}
           />
         ))}
-
-        {/* ── horizontal rule (line phase) ── */}
-        <motion.div
-          animate={{ opacity: phase === "line" ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
-          className="absolute top-1/2 left-0 right-0 h-px bg-border pointer-events-none"
-        />
 
         {/* ── album labels (albums phase) ── */}
         {displayedGroups.map((g) => (
@@ -279,17 +288,17 @@ export default function HeroAnimatedDemo() {
               style={{ transform: `translateY(${isMobile ? 16 : 24}px)` }}
               className="text-center"
             >
-              <p className="text-[12px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
+              <p className="text-[11px] sm:text-[13px] font-sans font-semibold uppercase tracking-[0.14em] text-foreground">
                 {g.label}
               </p>
-              <p className="text-[10px] sm:text-[11px] font-sans font-light text-muted-foreground mt-1">
+              <p className="text-[9px] sm:text-[11px] font-sans font-light text-muted-foreground mt-1">
                 {g.meta}
               </p>
-              <div className="flex items-center justify-center gap-1.5 mt-2">
+              <div className="flex items-center justify-center gap-1.5 mt-1.5">
                 <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center">
                   <User size={10} className="text-muted-foreground" />
                 </div>
-                <span className="text-[10px] font-sans font-light text-muted-foreground">
+                <span className="text-[9px] sm:text-[10px] font-sans font-light text-muted-foreground">
                   {g.creator}
                 </span>
               </div>
@@ -301,7 +310,7 @@ export default function HeroAnimatedDemo() {
         <motion.div
           animate={{ opacity: phase === "albums" ? 1 : 0 }}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="absolute bottom-[28px] sm:bottom-[60px] left-[8vw] z-20"
+          className="absolute bottom-[28px] sm:bottom-[60px] left-1/2 -translate-x-1/2 z-20"
         >
           <Link
             to="/dashboard"
