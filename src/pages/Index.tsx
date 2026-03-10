@@ -5,7 +5,6 @@ import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import HeroAnimatedDemo from "@/components/HeroAnimatedDemo";
 
-
 const Index = () => {
   const [accessCode, setAccessCode] = useState("");
   const [joining, setJoining] = useState(false);
@@ -93,18 +92,18 @@ const Index = () => {
       {/* Hero scroll animation */}
       <HeroAnimatedDemo />
 
-      {/* Join an album — single clean input */}
+      {/* Join an album */}
       <div className="px-6 md:px-[8vw] pt-10 pb-16">
         <form onSubmit={handleJoin} className="max-w-md">
           <p className="text-[10px] font-sans font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
-            Have a code?
+            Join an album
           </p>
           <div className="flex items-center gap-2">
             <input
               type="text"
               value={accessCode}
               onChange={(e) => setAccessCode(e.target.value)}
-              placeholder="Paste an access code or link"
+              placeholder="Enter access code"
               className="flex-1 h-10 px-4 rounded-full border border-border bg-card text-[13px] font-sans text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-ring/30 transition-all duration-200"
             />
             <button
@@ -112,12 +111,26 @@ const Index = () => {
               disabled={joining || !accessCode.trim()}
               className="h-10 px-5 rounded-full bg-primary text-primary-foreground text-[12px] font-sans font-medium tracking-wide uppercase hover:opacity-90 disabled:opacity-40 transition-all duration-200"
             >
-              {joining ? "..." : "Go"}
+              {joining ? "..." : "Join →"}
             </button>
           </div>
         </form>
-      </div>
 
+        {/* Dev sign-in shortcut */}
+        {!user && (
+          <div className="mt-10 pt-8 border-t border-border/30">
+            <p className="text-[10px] font-sans font-medium uppercase tracking-[0.2em] text-muted-foreground mb-3">
+              Quick access
+            </p>
+            <Link
+              to="/auth?redirect=/dashboard"
+              className="inline-flex items-center h-10 px-5 rounded-full border border-border bg-card text-[12px] font-sans font-medium text-foreground hover:bg-accent transition-all duration-200"
+            >
+              Sign in to Dashboard →
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
