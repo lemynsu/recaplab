@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import HeroAnimatedDemo from "@/components/HeroAnimatedDemo";
-import { Camera, Users, Download } from "lucide-react";
+
 
 const Index = () => {
   const [accessCode, setAccessCode] = useState("");
