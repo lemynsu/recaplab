@@ -118,56 +118,6 @@ const Index = () => {
         </form>
       </div>
 
-      {/* About section */}
-      <section
-        id="about"
-        className="px-6 md:px-[8vw] py-20 border-t border-border/40"
-      >
-        <p className="text-[10px] font-sans font-medium uppercase tracking-[0.2em] text-muted-foreground mb-10">
-          Why Recap
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 max-w-4xl">
-          {/* Why */}
-          <div className="space-y-3">
-            <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-              <Camera size={14} className="text-muted-foreground" />
-            </div>
-            <h3 className="text-[14px] font-sans font-medium text-foreground tracking-tight">
-              Photos scatter after every event
-            </h3>
-            <p className="text-[13px] font-sans font-light leading-relaxed text-muted-foreground">
-              Everyone takes photos, nobody shares them. Recap gives every event a single, shared album that lives in one place.
-            </p>
-          </div>
-
-          {/* What */}
-          <div className="space-y-3">
-            <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-              <Users size={14} className="text-muted-foreground" />
-            </div>
-            <h3 className="text-[14px] font-sans font-medium text-foreground tracking-tight">
-              One link, everyone contributes
-            </h3>
-            <p className="text-[13px] font-sans font-light leading-relaxed text-muted-foreground">
-              Create an album, share a code. Guests join instantly — no app downloads, no sign-up friction. Just drop your photos in.
-            </p>
-          </div>
-
-          {/* How */}
-          <div className="space-y-3">
-            <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center">
-              <Download size={14} className="text-muted-foreground" />
-            </div>
-            <h3 className="text-[14px] font-sans font-medium text-foreground tracking-tight">
-              Collect, curate, keep
-            </h3>
-            <p className="text-[13px] font-sans font-light leading-relaxed text-muted-foreground">
-              Photos arrive in real time. Organizers can curate. Everyone downloads the full album — the complete story, not just their angle.
-            </p>
-          </div>
-        </div>
-      </section>
     </div>
   );
 };
