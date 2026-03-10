@@ -74,12 +74,12 @@ const Index = () => {
               RECAP
             </span>
             <span className="text-border">·</span>
-            <a
-              href="#about"
+            <Link
+              to="/about"
               className="text-[13px] font-sans font-light text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               About
-            </a>
+            </Link>
           </div>
           <Link
             to={user ? "/dashboard" : "/auth?redirect=/dashboard"}
